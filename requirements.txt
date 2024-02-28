@@ -3,3 +3,4 @@ apache-airflow-providers-apache-spark
 apache-airflow-providers-google
 pyspark
 pyarrow
+pandas

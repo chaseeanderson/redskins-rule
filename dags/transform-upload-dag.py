@@ -1,7 +1,8 @@
 import os
 import logging
-from datetime import datetime, date
+from datetime import datetime
 from airflow import DAG
+from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 from google.cloud import storage
@@ -21,7 +22,7 @@ AIRFLOW_HOME = os.environ.get("AIRFLOW_HOME", "/opt/airflow/")
 # https://airflow.apache.org/docs/apache-airflow/1.10.12/macros-ref.html#airflow.macros.ds_format
 
 year = '{{ macros.ds_format(ds, \'%Y-%m-%d\' ,\'%Y\') }}'
-nfl_dataset_url = f"https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/28/schedule?season={year}"
+nfl_gcs_dataset_url = f"https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/28/schedule?season={year}"
 nfl_source_file = f"nfl_season_{year}.json"
 nfl_parquet_file = nfl_source_file.replace('.json', '.parquet')
 nfl_gcs_object_path = f"raw/schedule/{nfl_parquet_file}"
@@ -93,6 +94,7 @@ def download_parquetize_upload_gcs_operators(
     )
 
     download_data_task >> parquetize_data_task >> local_to_gcs_task
+
 
 default_args = {
     "owner": "airflow",
