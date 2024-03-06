@@ -29,12 +29,17 @@ nfl_gcs_object_path = f"raw/schedule/{nfl_parquet_file}"
 # Functions
 
 def format_to_parquet(src_file):
-  if not src_file.endswith('json'):
+  if not src_file.endswith('json') or not src_file.endswith('xlsx'):
         logging.error("Can only accept source files in json format, for the moment")
         return
   print("COMMENCE PARQUETIZATION...")
-  table = pj.read_json(src_file)
-  pq.write_table(table, src_file.replace('.json', '.parquet'))
+  if src.file.endswith('json'):
+    table = pj.read_json(src_file)
+    pq.write_table(table, src_file.replace('.json', '.parquet'))
+  elif src.file.endswith('xlsm'):
+    table = pj.read_json(src_file)
+    pq.write_table(table, src_file.replace('.json', '.parquet'))
+     
   print(src_file)
 
 def upload_to_gcs(bucket, object_name, local_file):
