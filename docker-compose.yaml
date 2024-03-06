@@ -91,6 +91,7 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
     - ${AIRFLOW_PROJ_DIR:-.}/jobs:/opt/airflow/jobs
+    - ${AIRFLOW_PROJ_DIR:-.}/helpers:/opt/airflow/helpers
     - /Users/ceanders/.google/credentials/projects/redskins-rule/:/Users/ceanders/.google/credentials/projects/redskins-rule:ro
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
