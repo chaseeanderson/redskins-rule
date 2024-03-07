@@ -5,6 +5,7 @@ from pyspark.conf import SparkConf
 from pyspark.context import SparkContext
 from pyspark.sql import functions as F
 from pyspark.sql.types import *
+from google.cloud import storage
 
 credentials_location = '/Users/ceanders/.google/credentials/projects/redskins-rule/redskins-rule-docker-airflow-credentials.json'
 
@@ -49,59 +50,74 @@ columns = StructType([
 processed_df = spark.createDataFrame(data = empty_RDD, schema = columns)
 
 # Process files
-file_paths = [
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2000.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2001.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2002.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2003.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2004.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2005.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2006.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2007.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2008.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2009.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2010.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2011.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2012.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2013.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2014.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2015.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2016.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2017.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2018.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2019.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2020.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2021.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2022.parquet',
-    'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2023.parquet',
-    
-]
+# get file_paths from GCS bucket instead of hardcoding
 
-for file_path in file_paths:
-    print(f"grabbing file...{file_path}")
-    exploded_df = get_raw_data_and_explode(file_path)
-    
-    # create a temp table
-    exploded_df.createOrReplaceTempView('temp')
 
-    # transform the file and save to a df
-    xform_df = spark.sql("""
-    SELECT 
-        exp_events.date,
-        exp_competitors.id,
-        exp_competitors.score.value
-    FROM
-        temp
-    GROUP BY 
-        1,2,3
-    """)
-    print("xform df row count")
-    count = xform_df.count()
-    print(f"transforming data complete...here's the row count {count}") 
-    
-    # union to the processed df
-    processed_df = processed_df.unionByName(xform_df)
-    proc_count = processed_df.count()
-    print(f"processsed count...{proc_count}")
+def list_blobs_with_prefix(bucket_name, prefix):
+    storage_client = storage.Client()
+    blobs = storage_client.list_blobs(bucket_name, prefix=prefix)
+    return ["gs://" + bucket_name + "/" + blob.name for blob in blobs]
 
-processed_df.select('*').sort('date', ascending=False).show()
+bucket_name = 'redskins-rule-nfl-game-data'
+prefix = 'raw/schedule/'
+file_paths = list_blobs_with_prefix(bucket_name, prefix)
+
+print(file_paths)
+
+
+# file_paths = [
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2000.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2001.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2002.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2003.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2004.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2005.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2006.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2007.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2008.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2009.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2010.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2011.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2012.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2013.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2014.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2015.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2016.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2017.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2018.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2019.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2020.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2021.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2022.parquet',
+#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2023.parquet',
+    
+# ]
+
+# for file_path in file_paths:
+#     print(f"grabbing file...{file_path}")
+#     exploded_df = get_raw_data_and_explode(file_path)
+    
+#     # create a temp table
+#     exploded_df.createOrReplaceTempView('temp')
+
+#     # transform the file and save to a df
+#     xform_df = spark.sql("""
+#     SELECT 
+#         exp_events.date,
+#         exp_competitors.id,
+#         exp_competitors.score.value
+#     FROM
+#         temp
+#     GROUP BY 
+#         1,2,3
+#     """)
+#     print("xform df row count")
+#     count = xform_df.count()
+#     print(f"transforming data complete...here's the row count {count}") 
+    
+#     # union to the processed df
+#     processed_df = processed_df.unionByName(xform_df)
+#     proc_count = processed_df.count()
+#     print(f"processsed count...{proc_count}")
+
+# processed_df.select('*').sort('date', ascending=False).show()

@@ -1,6 +1,10 @@
 import requests as rqst
 from bs4 import BeautifulSoup as bs
 import re
+import pyarrow.csv as pv
+import pyarrow.parquet as pq
+import pandas as pd
+import os
 
 class SoupScraper:
     def __init__(self, html):
@@ -56,3 +60,6 @@ def insert_years(table):
 
 # Format the election data
 insert_years(elections_data.table_body)
+
+df_pandas = pd.DataFrame(elections_data.table_body, columns=elections_data.table_head)
+df_pandas.to_csv(f"{AIRFLOW_HOME}/{elections_source_file}")
