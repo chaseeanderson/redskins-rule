@@ -1,44 +1,43 @@
 import os
 import logging
-from datetime import datetime, date
+from datetime import datetime
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 from google.cloud import storage
 from airflow.providers.google.cloud.operators.bigquery import BigQueryCreateExternalTableOperator
 import pyarrow.json as pj
+import pyarrow.csv as pv
 import pyarrow.parquet as pq
-# import pandas as pd
 
-# ENV Variables
+# Top Level Variables
 PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
-BUCKET_NFL = os.environ.get("GCP_GCS_BUCKET_NFL")
 AIRFLOW_HOME = os.environ.get("AIRFLOW_HOME", "/opt/airflow/")
 # BIGQUERY_DATASET = os.environ.get("BIGQUERY_DATASET", 'trips_data_all')
-
-# File Handling Variables
 # Airflow docs on date macros for formatting
 # https://airflow.apache.org/docs/apache-airflow/1.10.12/macros-ref.html#airflow.macros.ds_format
-
 year = '{{ macros.ds_format(ds, \'%Y-%m-%d\' ,\'%Y\') }}'
-nfl_dataset_url = f"https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/28/schedule?season={year}"
-nfl_source_file = f"nfl_season_{year}.json"
-nfl_parquet_file = nfl_source_file.replace('.json', '.parquet')
-nfl_gcs_object_path = f"raw/schedule/{nfl_parquet_file}"
+default_args = {
+    "owner": "airflow",
+    "depends_on_past": False,
+    "retries": 1
+}
 
+#TODO modularize DAG file - add functions to handle tasks in separate 'include' folder
 # Functions
-
 def format_to_parquet(src_file):
-  if not src_file.endswith('json') or not src_file.endswith('xlsx'):
-        logging.error("Can only accept source files in json format, for the moment")
+  print(f"SRC FILE HERE...{src_file}")
+  # TODO fix this if not or statement to accept both file types
+  if not (src_file.endswith('.json') or src_file.endswith('.csv')):
+        logging.error("Can only accept source files in json / csv format, for the moment")
         return
   print("COMMENCE PARQUETIZATION...")
-  if src.file.endswith('json'):
+  if src_file.endswith('.json'):
     table = pj.read_json(src_file)
     pq.write_table(table, src_file.replace('.json', '.parquet'))
-  elif src.file.endswith('xlsm'):
-    table = pj.read_json(src_file)
-    pq.write_table(table, src_file.replace('.json', '.parquet'))
+  elif src_file.endswith('.csv'):
+    table = pv.read_csv(src_file)
+    pq.write_table(table, src_file.replace('.csv', '.parquet'))
      
   print(src_file)
 
@@ -63,48 +62,54 @@ def upload_to_gcs(bucket, object_name, local_file):
     blob = bucket.blob(object_name)
     blob.upload_from_filename(local_file)
 
-def download_parquetize_upload_gcs_operators(
+def download_parquetize_upload_gcs_tasks(
     dag,
     dataset_url,
     source_file,
     parquet_file,
+    bucket_name,
     gcs_object_path
 
 ):
-  with dag:
-    download_data_task = BashOperator(
-       task_id="download_data_task",
-       bash_command=f"echo DOWNLOADING DATA... && \
-        curl -sSLf {dataset_url} > {AIRFLOW_HOME}/{source_file} && \
-        ls {AIRFLOW_HOME}"
+  download_data_task = BashOperator(
+    dag=dag,
+    task_id="download_data_task",
+    env={"dag_id": f"{dag.dag_id}"},
+    bash_command=f"echo DOWNLOADING DATA... && \
+    if [[ $dag_id == nfl_ingest_dag ]]; then \
+      echo RUNNING NFL INGEST...; \
+      curl -sSLf {dataset_url} > {AIRFLOW_HOME}/{source_file}; \
+    elif [[ $dag_id == elections_ingest_dag ]]; then \
+      echo RUNNING ELECTIONS INGEST...; \
+      python3 {AIRFLOW_HOME}/dags/scripts/ingest/elections.py; \
+    else \
+      echo NO DAG HERE; \
+    fi && \
+    ls {AIRFLOW_HOME}"
+)
+
+  parquetize_data_task = PythonOperator(
+      task_id="parquetize_data_task",
+      python_callable=format_to_parquet,
+      op_kwargs={
+        "src_file": f"{AIRFLOW_HOME}/{source_file}"
+      }
+  )
+
+  local_to_gcs_task = PythonOperator(
+      task_id="local_to_gcs_task",
+      python_callable=upload_to_gcs,
+      op_kwargs={
+        "bucket": f"{bucket_name}",
+        "object_name": f"{gcs_object_path}",
+        "local_file": f"{AIRFLOW_HOME}/{parquet_file}"
+      }
+
     )
+  
+  download_data_task >> parquetize_data_task >> local_to_gcs_task
 
-    parquetize_data_task = PythonOperator(
-       task_id="parquetize_data_task",
-       python_callable=format_to_parquet,
-       op_kwargs={
-          "src_file": f"{AIRFLOW_HOME}/{source_file}"
-       }
-    )
-
-    local_to_gcs_task = PythonOperator(
-       task_id="local_to_gcs_task",
-       python_callable=upload_to_gcs,
-       op_kwargs={
-          "bucket": BUCKET_NFL,
-          "object_name": f"{gcs_object_path}",
-          "local_file": f"{AIRFLOW_HOME}/{parquet_file}"
-       }
-    )
-
-    download_data_task >> parquetize_data_task >> local_to_gcs_task
-
-default_args = {
-    "owner": "airflow",
-    "depends_on_past": False,
-    "retries": 1
-}
-
+# NFL DAG
 nfl_ingest_dag = DAG(
   dag_id="nfl_ingest_dag",
   default_args=default_args,
@@ -117,22 +122,45 @@ nfl_ingest_dag = DAG(
   tags=['nfl_ingest_dag']
 )
 
-download_parquetize_upload_gcs_operators(
+# NFL Variables
+nfl_dataset_url = f"https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/28/schedule?season={year}"
+nfl_source_file = f"nfl_season_{year}.json"
+nfl_parquet_file = nfl_source_file.replace('.json', '.parquet')
+BUCKET_NFL = os.environ.get("GCP_GCS_BUCKET_NFL")
+nfl_gcs_object_path = f"raw/schedule/{nfl_parquet_file}"
+
+# NFL Tasks
+download_parquetize_upload_gcs_tasks(
     dag=nfl_ingest_dag,
     dataset_url=nfl_dataset_url,
     source_file=nfl_source_file,
     parquet_file=nfl_parquet_file,
+    bucket_name=BUCKET_NFL,
     gcs_object_path=nfl_gcs_object_path
 )
 
-nfl_transform_dag = DAG(
-  dag_id="nfl_transform_dag",
+# Elections DAG
+elections_ingest_dag = DAG(
+  dag_id="elections_ingest_dag",
   default_args=default_args,
-  schedule_interval = "@yearly",
-  start_date=datetime(1999, 1, 1),
-  # catchup will kick off a dag run for any data interval that has not been run since the last data interval
-  catchup=True,
+  schedule_interval = "@once",
+  start_date=datetime(2024, 3, 6),
   # try to limit active concurrent runs or machine could freak out
   max_active_runs=3,
-  tags=['nfl_ingest_dag']
+  tags=['elections_ingest_dag']
+) 
+
+# Elections Variables
+elections_source_file = 'processed_elections.csv'
+elections_parquet_file = elections_source_file.replace('.csv', '.parquet')
+BUCKET_ELECTIONS = os.environ.get("GCP_GCS_BUCKET_ELECTIONS")
+elections_gcs_object_path = f"raw/{elections_parquet_file}"
+
+download_parquetize_upload_gcs_tasks(
+    dag=elections_ingest_dag,
+    dataset_url="null",
+    source_file=elections_source_file,
+    parquet_file=elections_parquet_file,
+    bucket_name=BUCKET_ELECTIONS,
+    gcs_object_path=elections_gcs_object_path
 )

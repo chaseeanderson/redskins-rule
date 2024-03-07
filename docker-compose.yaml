@@ -82,7 +82,7 @@ x-airflow-common:
     # TODO: Please change GCP_PROJECT_ID & GCP_GCS_BUCKET, as per your config
     GCP_PROJECT_ID: 'project-redskins-rule'
     GCP_GCS_BUCKET_NFL: 'redskins-rule-nfl-game-data'
-    GCP_GCS_BUCKET_ELECTION: 'redskins-rule-presidential-election-data'
+    GCP_GCS_BUCKET_ELECTIONS: 'redskins-rule-presidential-election-data'
     BIGQUERY_DATASET: 'airflow_taxi_data_2019_2021'
 
   volumes:
@@ -90,8 +90,6 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
-    - ${AIRFLOW_PROJ_DIR:-.}/jobs:/opt/airflow/jobs
-    - ${AIRFLOW_PROJ_DIR:-.}/helpers:/opt/airflow/helpers
     - /Users/ceanders/.google/credentials/projects/redskins-rule/:/Users/ceanders/.google/credentials/projects/redskins-rule:ro
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
@@ -315,15 +313,6 @@ services:
       SPARK_WORKER_CORES: 2
       SPARK_WORKER_MEMORY: 1g
       SPARK_MASTER_URL: spark://spark-master:7077
-
-  jupyter:
-    image: jupyter/base-notebook:latest
-    container_name: jupyter
-    ports:
-      - 8888:8888
-    environment:
-      JUPYTER_ENABLE_LAB: "yes"
-      JUPYTER_TOKEN: "docker"
 
 volumes:
   postgres-db-volume:

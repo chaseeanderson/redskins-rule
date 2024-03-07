@@ -102,7 +102,7 @@ default_args = {
     "retries": 1
 }
 
-nfl_ingest_dag = DAG(
+TEST_nfl_ingest_dag = DAG(
   dag_id="nfl_ingest_dag",
   default_args=default_args,
   schedule_interval = "@yearly",
@@ -122,7 +122,7 @@ download_parquetize_upload_gcs_operators(
     gcs_object_path=nfl_gcs_object_path
 )
 
-nfl_transform_dag = DAG(
+TEST_nfl_transform_dag = DAG(
   dag_id="nfl_transform_dag",
   default_args=default_args,
   schedule_interval = "@yearly",
