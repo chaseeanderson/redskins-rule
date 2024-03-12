@@ -6,6 +6,7 @@ from pyspark.context import SparkContext
 from pyspark.sql import functions as F
 from pyspark.sql.types import *
 from google.cloud import storage
+from pyspark.sql.functions import col, translate
 
 credentials_location = '/Users/ceanders/.google/credentials/projects/redskins-rule/redskins-rule-docker-airflow-credentials.json'
 
@@ -49,10 +50,7 @@ columns = StructType([
 ])
 processed_df = spark.createDataFrame(data = empty_RDD, schema = columns)
 
-# Process files
-# get file_paths from GCS bucket instead of hardcoding
-
-
+# Get files from GCS and process
 def list_blobs_with_prefix(bucket_name, prefix):
     storage_client = storage.Client()
     blobs = storage_client.list_blobs(bucket_name, prefix=prefix)
@@ -62,62 +60,115 @@ bucket_name = 'redskins-rule-nfl-game-data'
 prefix = 'raw/schedule/'
 file_paths = list_blobs_with_prefix(bucket_name, prefix)
 
-print(file_paths)
-
-
-# file_paths = [
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2000.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2001.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2002.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2003.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2004.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2005.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2006.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2007.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2008.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2009.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2010.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2011.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2012.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2013.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2014.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2015.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2016.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2017.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2018.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2019.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2020.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2021.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2022.parquet',
-#     'gs://redskins-rule-nfl-game-data/raw/schedule/nfl_season_2023.parquet',
+for file_path in file_paths:
+    print(f"grabbing file...{file_path}")
+    exploded_df = get_raw_data_and_explode(file_path)
     
-# ]
+    # create a temp table
+    exploded_df.createOrReplaceTempView('temp')
 
-# for file_path in file_paths:
-#     print(f"grabbing file...{file_path}")
-#     exploded_df = get_raw_data_and_explode(file_path)
+    # transform the file and save to a df
+    xform_df = spark.sql("""
+    SELECT 
+        exp_events.date,
+        exp_competitors.id,
+        exp_competitors.score.value
+    FROM
+        temp
+    GROUP BY 
+        1,2,3
+    """)
+    print("xform df row count")
+    count = xform_df.count()
+    print(f"transforming data complete...here's the row count {count}") 
     
-#     # create a temp table
-#     exploded_df.createOrReplaceTempView('temp')
+    # union to the processed df
+    processed_df = processed_df.unionByName(xform_df)
+    proc_count = processed_df.count()
+    print(f"processsed count...{proc_count}")
 
-#     # transform the file and save to a df
-#     xform_df = spark.sql("""
-#     SELECT 
-#         exp_events.date,
-#         exp_competitors.id,
-#         exp_competitors.score.value
-#     FROM
-#         temp
-#     GROUP BY 
-#         1,2,3
-#     """)
-#     print("xform df row count")
-#     count = xform_df.count()
-#     print(f"transforming data complete...here's the row count {count}") 
+processed_df.select('*').sort('date', ascending=False).show()
+
+spark.stop()
+
+def predict_pres(df):
+    for elem in df: 
+        if elem.redskins_result == 'WIN':
+            return elem.incumbent_pres_party
+        else: 
+            return elem.challenger_pres_party
+
+def predict_pres_flipped(df):
+    for elem in df:
+        if elem.redskins_result == 'LOSE':
+            return elem.incumbent_pres_party
+        else: 
+            return elem.challenger_pres_party
+        
+def rule_check(df):
+    for elem in df:
+        if elem.pop_winning_party != elem.pres_winning_party:
+            return predict_pres_flipped(df)
+        else:
+            return predict_pres(df)
+        
+# V2
+def predict_pres(df_elem):
+    if df_elem.redskins_result == 'WIN':
+        print('norm - win')
+        print(df_elem.elec_date)
+        print(df_elem.incumbent_pres_party)
+        return df_elem.incumbent_pres_party
+    else: 
+        print('norm - lose')
+        print(df_elem.elec_date)
+        print(df_elem.challenger_pres_party)
+        return df_elem.challenger_pres_party
+
+def predict_pres_flipped(df_elem):
+    if df_elem.redskins_result == 'LOSE':
+        print('flipped! lose')
+        print(df_elem.elec_date)
+        print(df_elem.incumbent_pres_party)
+        return df_elem.incumbent_pres_party
+    else: 
+        print('flipped! win')
+        print(df_elem.elec_date)
+        print(df_elem.challenger_pres_party)
+        return df_elem.challenger_pres_party
+        
+def rule_check(df_elem):
+    if df_elem.pop_winning_party != df_elem.pres_winning_party:
+        return predict_pres_flipped(df_elem)
+    else:
+        return predict_pres(df_elem)
     
-#     # union to the processed df
-#     processed_df = processed_df.unionByName(xform_df)
-#     proc_count = processed_df.count()
-#     print(f"processsed count...{proc_count}")
+    def add_new_column(df, column_name, value):
+        df = df.withColumn(column_name, F.lit(value))
+        return df
 
-# processed_df.select('*').sort('date', ascending=False).show()
+    # Usage
+    processed_df = add_new_column(processed_df, "new_column", "new_value")
+    
+    
+def row_rule_check(elem, toggle=determine_rule(test_df_elem[0])):
+    # toggle = determine_rule(elem)
+    # for elem in df_elems:
+    print(f"toggle: {toggle}")
+    # check toggle for which function to run 
+    if toggle == 1:
+        return predict_pres(elem)
+    elif toggle == -1:
+        return predict_pres_flipped(elem)
+    else: 
+        print('somethings up')
+    # determine toggle for next iteration
+    toggle = determine_rule(elem)
+    return elem
+        
+def check_rule(pres_winning_party, prediction):
+    # if df.pres_winning_party == df.prediction:
+    #     return TRUE
+    # else:
+    #     return FALSE
+    return True if pres_winning_party == prediction else False

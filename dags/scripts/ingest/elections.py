@@ -65,3 +65,4 @@ insert_years(elections_data.table_body)
 
 df_pandas = pd.DataFrame(elections_data.table_body, columns=elections_data.table_head)
 df_pandas.to_csv(f"{AIRFLOW_HOME}/{elections_source_file}")
+
