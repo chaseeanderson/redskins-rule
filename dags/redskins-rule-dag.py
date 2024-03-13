@@ -23,7 +23,7 @@ default_args = {
     "retries": 1
 }
 
-#TODO modularize DAG file - add functions to handle tasks in separate 'include' folder
+#TODO modularize DAG file - move ingest / preprocessing tasks to be handled by spark jobs
 # Functions
 def format_to_parquet(src_file):
   print(f"SRC FILE HERE...{src_file}")
@@ -109,7 +109,7 @@ def download_parquetize_upload_gcs_tasks(
   
   download_data_task >> parquetize_data_task >> local_to_gcs_task
 
-# NFL DAG
+# NFL Ingest DAG
 nfl_ingest_dag = DAG(
   dag_id="nfl_ingest_dag",
   default_args=default_args,
@@ -139,12 +139,13 @@ download_parquetize_upload_gcs_tasks(
     gcs_object_path=nfl_gcs_object_path
 )
 
-# Elections DAG
+# Elections Ingest DAG
 elections_ingest_dag = DAG(
   dag_id="elections_ingest_dag",
   default_args=default_args,
   schedule_interval = "@once",
   start_date=datetime(2024, 3, 6),
+  catchup=False,
   # try to limit active concurrent runs or machine could freak out
   max_active_runs=3,
   tags=['elections_ingest_dag']
@@ -163,4 +164,22 @@ download_parquetize_upload_gcs_tasks(
     parquet_file=elections_parquet_file,
     bucket_name=BUCKET_ELECTIONS,
     gcs_object_path=elections_gcs_object_path
+)
+
+# Transform DAG
+nfl_elec_transform_dag = DAG(
+  dag_id="nfl_elec_transform_dag",
+  default_args=default_args,
+  schedule_interval = "@once",
+  start_date=datetime(2024, 3, 6),
+  catchup=False,
+  # try to limit active concurrent runs or machine could freak out
+  max_active_runs=3,
+  tags=['nfl_elec_transform_dag']
+)
+
+nfl_elec_transform_task = SparkSubmitOperator(
+    task_id="nfl_elec_transform_task",
+    application=f"{AIRFLOW_HOME}/jobs/transform/nfl_elec_transform.py",
+    conn_id="spark-conn"
 )
