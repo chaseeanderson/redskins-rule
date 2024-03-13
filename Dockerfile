@@ -1,4 +1,4 @@
-FROM apache/airflow:2.7.1-python3.11
+FROM apache/airflow:2.7.1-python3.11 AS base
 
 ENV AIRFLOW_HOME=/opt/airflow
 
@@ -44,3 +44,32 @@ USER $AIRFLOW_UID
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Stage 2 - GCS connector for Spark
+FROM bitnami/spark:latest AS spark
+
+USER root
+RUN apt-get update && \
+    apt-get install -y curl && \
+    apt-get clean
+
+SHELL ["/bin/bash", "-o", "pipefail", "-e", "-u", "-x", "-c"]
+
+USER 0
+
+ENV HADOOP_VERSION=3.2.2
+ENV GCS_CONNECTOR_VERSION=2.2.20
+ENV SPARK_HOME=/opt/bitnami/spark 
+
+RUN curl https://github.com/GoogleCloudDataproc/hadoop-connectors/releases/download/v${GCS_CONNECTOR_VERSION}/gcs-connector-hadoop3-${GCS_CONNECTOR_VERSION}-shaded.jar \
+     -o ${SPARK_HOME}/jars/gcs-connector-hadoop3-${GCS_CONNECTOR_VERSION}.jar
+
+# Stage 3 - Final image
+FROM base AS final
+
+ENV SPARK_HOME=/opt/bitnami/spark 
+
+COPY --from=spark ${SPARK_HOME} ${SPARK_HOME}
+
+#TODO Copy over Spark code possibly
+

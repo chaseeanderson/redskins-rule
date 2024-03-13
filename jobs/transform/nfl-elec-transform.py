@@ -14,7 +14,7 @@ credentials_location = '/Users/ceanders/.google/credentials/projects/redskins-ru
 
 conf = SparkConf() \
     .setMaster('local[*]') \
-    .setAppName('test') \
+    .setAppName('redskins-rule-spark') \
     .set("spark.jars", "/usr/local/Cellar/apache-spark/3.5.0/libexec/jars/gcs-connector-hadoop3-2.2.5.jar") \
     .set("spark.hadoop.google.cloud.auth.service.account.enable", "true") \
     .set("spark.hadoop.google.cloud.auth.service.account.json.keyfile", credentials_location)
@@ -29,7 +29,7 @@ hadoop_conf.set("fs.gs.auth.service.account.json.keyfile", credentials_location)
 hadoop_conf.set("fs.gs.auth.service.account.enable", "true")
 
 spark = SparkSession.builder \
-    .appName('test') \
+    .appName('redskins-rule-spark') \
     .config(conf=sc.getConf()) \
     .getOrCreate()
 
