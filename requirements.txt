@@ -4,3 +4,4 @@ apache-airflow-providers-google
 pyspark
 pyarrow
 pandas
+google-cloud-storage

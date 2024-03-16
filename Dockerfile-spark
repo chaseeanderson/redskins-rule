@@ -1,0 +1,22 @@
+# Stage 2 - GCS connector for Spark
+FROM bitnami/spark:latest AS spark
+
+USER root
+RUN apt-get update \
+    && apt-get install -y procps curl \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV JAVA_HOME=/opt/bitnami/java
+
+USER 1001
+
+ENV HADOOP_VERSION=3.2.2
+ENV GCS_CONNECTOR_VERSION=2.2.20
+ENV SPARK_HOME=/opt/bitnami/spark 
+
+RUN curl -L https://github.com/GoogleCloudDataproc/hadoop-connectors/releases/download/v${GCS_CONNECTOR_VERSION}/gcs-connector-hadoop3-${GCS_CONNECTOR_VERSION}-shaded.jar \
+     -o ${SPARK_HOME}/jars/gcs-connector-hadoop3-${GCS_CONNECTOR_VERSION}.jar
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
