@@ -9,15 +9,14 @@ from pyspark.sql.types import *
 from google.cloud import storage
 from datetime import datetime, timedelta
 
-#TODO do we need this? Move to config file?
-credentials_location = '/Users/ceanders/.google/credentials/projects/redskins-rule/redskins-rule-docker-airflow-credentials.json'
+GOOGLE_APPLICATION_CREDENTIALS = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+AIRFLOW_HOME = os.environ.get('AIRFLOW_HOME')
 
 conf = SparkConf() \
     .setMaster('local[*]') \
     .setAppName('redskins-rule-spark') \
-    .set("spark.jars", "/usr/local/Cellar/apache-spark/3.5.0/libexec/jars/gcs-connector-hadoop3-2.2.5.jar") \
     .set("spark.hadoop.google.cloud.auth.service.account.enable", "true") \
-    .set("spark.hadoop.google.cloud.auth.service.account.json.keyfile", credentials_location)
+    .set("spark.hadoop.google.cloud.auth.service.account.json.keyfile", GOOGLE_APPLICATION_CREDENTIALS)
 
 sc = SparkContext(conf=conf)
 
@@ -25,11 +24,11 @@ hadoop_conf = sc._jsc.hadoopConfiguration()
 
 hadoop_conf.set("fs.AbstractFileSystem.gs.impl",  "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS")
 hadoop_conf.set("fs.gs.impl", "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem")
-hadoop_conf.set("fs.gs.auth.service.account.json.keyfile", credentials_location)
+hadoop_conf.set("fs.gs.project.id", "project-redskins-rule")
+hadoop_conf.set("fs.gs.auth.service.account.json.keyfile", GOOGLE_APPLICATION_CREDENTIALS)
 hadoop_conf.set("fs.gs.auth.service.account.enable", "true")
 
 spark = SparkSession.builder \
-    .appName('redskins-rule-spark') \
     .config(conf=sc.getConf()) \
     .getOrCreate()
 
@@ -353,5 +352,6 @@ nfl_elec_df = nfl_elec_df.withColumn('prediction_results', check_rule(nfl_elec_d
 nfl_elec_df = nfl_elec_df.where(nfl_elec_df.elec_date >= '2000-01-01')
 
 # save final result
-nfl_elec_df.toPandas().to_csv('output.csv')
+nfl_elec_df.toPandas().to_parquet(f"{AIRFLOW_HOME}/results/nfl_elec_results.parquet")
 
+spark.stop()

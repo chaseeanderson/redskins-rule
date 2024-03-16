@@ -46,8 +46,12 @@
 ---
 x-spark-common: &spark-common
   image: bitnami/spark:latest
+  # build:
+  #   context: .
+  #   dockerfile: ./Dockerfile-spark
   volumes:
     - ./jobs:/opt/bitnami/spark/jobs
+    # - shared-jars:/opt/bitnami/spark/shared-jars
 
 x-airflow-common:
   &airflow-common
@@ -57,7 +61,7 @@ x-airflow-common:
   # image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.8.1}
   build:
     context: .
-    dockerfile: ./Dockerfile
+    dockerfile: ./Dockerfile-airflow
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
@@ -83,7 +87,8 @@ x-airflow-common:
     GCP_PROJECT_ID: 'project-redskins-rule'
     GCP_GCS_BUCKET_NFL: 'redskins-rule-nfl-game-data'
     GCP_GCS_BUCKET_ELECTIONS: 'redskins-rule-presidential-election-data'
-    BIGQUERY_DATASET: 'airflow_taxi_data_2019_2021'
+    GCP_GCS_BUCKET_RESULTS: 'redskins-rule-results'
+    BIGQUERY_DATASET: 'redskins_rule_results_dataset'
 
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
@@ -91,6 +96,7 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
     - ${AIRFLOW_PROJ_DIR:-.}/jobs:/opt/airflow/jobs
+    - ${AIRFLOW_PROJ_DIR:-.}/results:/opt/airflow/results
     - ${GOOGLE_APPLICATION_CREDENTIALS_FOLDER}/:${GOOGLE_APPLICATION_CREDENTIALS_FOLDER}:ro
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:

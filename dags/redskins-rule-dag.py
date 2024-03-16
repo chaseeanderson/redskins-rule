@@ -6,6 +6,7 @@ from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 from google.cloud import storage
 from airflow.providers.google.cloud.operators.bigquery import BigQueryCreateExternalTableOperator
+from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
 import pyarrow.json as pj
 import pyarrow.csv as pv
 import pyarrow.parquet as pq
@@ -13,7 +14,7 @@ import pyarrow.parquet as pq
 # Top Level Variables
 PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
 AIRFLOW_HOME = os.environ.get("AIRFLOW_HOME", "/opt/airflow/")
-# BIGQUERY_DATASET = os.environ.get("BIGQUERY_DATASET", 'trips_data_all')
+
 # Airflow docs on date macros for formatting
 # https://airflow.apache.org/docs/apache-airflow/1.10.12/macros-ref.html#airflow.macros.ds_format
 year = '{{ macros.ds_format(ds, \'%Y-%m-%d\' ,\'%Y\') }}'
@@ -27,7 +28,6 @@ default_args = {
 # Functions
 def format_to_parquet(src_file):
   print(f"SRC FILE HERE...{src_file}")
-  # TODO fix this if not or statement to accept both file types
   if not (src_file.endswith('.json') or src_file.endswith('.csv')):
         logging.error("Can only accept source files in json / csv format, for the moment")
         return
@@ -41,12 +41,12 @@ def format_to_parquet(src_file):
      
   print(src_file)
 
-def upload_to_gcs(bucket, object_name, local_file):
+def upload_to_gcs(bucket, object_name, file):
     """
     Ref: https://cloud.google.com/storage/docs/uploading-objects#storage-upload-object-python
     :param bucket: GCS bucket name
     :param object_name: target path & file-name
-    :param local_file: source path & file-name
+    :param file: source path & file-name
     :return:
     """
     # WORKAROUND to prevent timeout for files > 6 MB on 800 kbps upload speed.
@@ -55,12 +55,12 @@ def upload_to_gcs(bucket, object_name, local_file):
     storage.blob._DEFAULT_CHUNKSIZE = 5 * 1024 * 1024  # 5 MB
     # End of Workaround
 
-    print("UPLOADING TO GCS...")
+    print(f"UPLOADING TO GCS...{file}")
     client = storage.Client()
     bucket = client.bucket(bucket)
 
     blob = bucket.blob(object_name)
-    blob.upload_from_filename(local_file)
+    blob.upload_from_filename(file)
 
 def download_parquetize_upload_gcs_tasks(
     dag,
@@ -102,7 +102,7 @@ def download_parquetize_upload_gcs_tasks(
       op_kwargs={
         "bucket": f"{bucket_name}",
         "object_name": f"{gcs_object_path}",
-        "local_file": f"{AIRFLOW_HOME}/{parquet_file}"
+        "file": f"{AIRFLOW_HOME}/{parquet_file}"
       }
 
     )
@@ -179,7 +179,55 @@ nfl_elec_transform_dag = DAG(
 )
 
 nfl_elec_transform_task = SparkSubmitOperator(
+    dag=nfl_elec_transform_dag,
     task_id="nfl_elec_transform_task",
-    application=f"{AIRFLOW_HOME}/jobs/transform/nfl_elec_transform.py",
-    conn_id="spark-conn"
+    application=f"{AIRFLOW_HOME}/jobs/transform/nfl-elec-transform.py",
+    conn_id="spark-conn",
+    jars=f"{AIRFLOW_HOME}/shared-jars/gcs-connector-hadoop3-2.2.20.jar"
 )
+
+# Load DAG
+nfl_elec_upload_dag = DAG(
+  dag_id="nfl_elec_upload_dag",
+  default_args=default_args,
+  schedule_interval = "@once",
+  start_date=datetime(2024, 3, 6),
+  catchup=False,
+  # try to limit active concurrent runs or machine could freak out
+  max_active_runs=3,
+  tags=['nfl_elec_upload_dag']
+)
+results_object_path = "results/nfl_elec_results.parquet"
+BIGQUERY_DATASET = os.environ.get("BIGQUERY_DATASET")
+RESULTS_BUCKET = os.environ.get("GCP_GCS_BUCKET_RESULTS")
+
+transform_results_upload_gcs_task = PythonOperator(
+  dag=nfl_elec_upload_dag,
+  task_id="transform_results_upload_gcs_task",
+  python_callable=upload_to_gcs,
+  op_kwargs={
+    "bucket": "redskins-rule-results",
+    "object_name": results_object_path,
+    "file": f"{AIRFLOW_HOME}/{results_object_path}"
+  }
+
+)
+
+bigquery_build_external_table_task = BigQueryCreateExternalTableOperator(
+  dag=nfl_elec_upload_dag,
+  task_id="bigquery_build_external_table_task",
+  table_resource={
+      "tableReference": {
+          "projectId": PROJECT_ID,
+          "datasetId": BIGQUERY_DATASET,
+          "tableId": "redskins_rule_table_v1",
+      },
+      "externalDataConfiguration": {
+          "sourceFormat": "PARQUET",
+          "sourceUris": [f"gs://{RESULTS_BUCKET}/{results_object_path}"],
+          "autodetect": True
+      }
+  }
+)
+
+transform_results_upload_gcs_task >> bigquery_build_external_table_task
