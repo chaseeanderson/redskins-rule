@@ -144,8 +144,8 @@ for file_path in elec_file_paths:
 elec_df = elec_df.withColumn('year', F.to_date(elec_df.year, 'yyyy'))
 elec_df = elec_df.withColumn('popular_votes', F.translate(elec_df.popular_votes, ",", "").cast(LongType()))
 
-# filter for years > 1996 (need pre-2000 data for incumbent status)
-query = "year >= DATE '1996-01-01'"
+# filter for years > 1972 for incumbent status
+query = "year >= DATE '1972-01-01'"
 elec_df = elec_df.where(query)
 
 # Add election dates to elections df:
@@ -160,8 +160,8 @@ def find_election_day(year):
     date += timedelta(days=1)
     return date.strftime("%Y-%m-%d")
 
-# Find the election days every 4 years starting in the year 1996
-elec_dates_values = [find_election_day(year) for year in range(1996, datetime.now().year + 1, 4)]
+# Find the election days every 4 years starting in the year 1976
+elec_dates_values = [find_election_day(year) for year in range(1976, datetime.now().year + 1, 4)]
 
 # convert to pandas df to load to spark
 pd_df = pd.DataFrame(elec_dates_values, columns=['elec_date'])
@@ -349,7 +349,7 @@ def check_rule(pres_winning_party, prediction):
 spark.udf.register('check_rule', check_rule)
 
 nfl_elec_df = nfl_elec_df.withColumn('prediction_results', check_rule(nfl_elec_df.pres_winning_party, nfl_elec_df.prediction))
-nfl_elec_df = nfl_elec_df.where(nfl_elec_df.elec_date >= '2000-01-01')
+nfl_elec_df = nfl_elec_df.where(nfl_elec_df.elec_date >= '1976-01-01')
 
 # save final result
 nfl_elec_df.toPandas().to_parquet(f"{AIRFLOW_HOME}/results/nfl_elec_results.parquet")
