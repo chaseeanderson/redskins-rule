@@ -88,7 +88,12 @@ x-airflow-common:
     GCP_GCS_BUCKET_NFL: 'redskins-rule-nfl-game-data'
     GCP_GCS_BUCKET_ELECTIONS: 'redskins-rule-presidential-election-data'
     GCP_GCS_BUCKET_RESULTS: 'redskins-rule-results'
-    BIGQUERY_DATASET: 'redskins_rule_results_dataset'
+    NFL_BIGQUERY_DATASET: 'redskins_rule_nfl_dataset'
+    ELECTIONS_BIGQUERY_DATASET: 'redskins_rule_elections_dataset'
+    RESULTS_BIGQUERY_DATASET: 'redskins_rule_results_dataset'
+    NFL_BIGQUERY_TABLEID: 'redskins_rule_nfl_raw_v1'
+    ELECTIONS_BIGQUERY_TABLEID: 'redskins_rule_elec_raw_v1'
+    RESULTS_BIGQUERY_TABLEID: 'redskins_rule_results_v1'
 
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
@@ -97,6 +102,7 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
     - ${AIRFLOW_PROJ_DIR:-.}/jobs:/opt/airflow/jobs
     - ${AIRFLOW_PROJ_DIR:-.}/results:/opt/airflow/results
+    - ${AIRFLOW_PROJ_DIR:-.}/airflow-home:/opt/airflow
     - ${GOOGLE_APPLICATION_CREDENTIALS_FOLDER}/:${GOOGLE_APPLICATION_CREDENTIALS_FOLDER}:ro
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
