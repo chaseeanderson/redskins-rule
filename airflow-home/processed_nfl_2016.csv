@@ -1,41 +1,41 @@
-,year,date,team,q1,q2,q3,q4,final
-0,2016,Mon 9/12,Pittsburgh(1-0),0,14,10,14,38
-1,2016,Mon 9/12,Washington(0-1),6,0,3,7,16
-2,2016,Sun 9/18,Pittsburgh(1-0),0,14,10,14,38
-3,2016,Sun 9/18,Washington(0-1),6,0,3,7,16
-4,2016,Sun 9/25,Pittsburgh(1-0),0,14,10,14,38
-5,2016,Sun 9/25,Washington(0-1),6,0,3,7,16
-6,2016,Sun 10/2,Pittsburgh(1-0),0,14,10,14,38
-7,2016,Sun 10/2,Washington(0-1),6,0,3,7,16
-8,2016,Sun 10/9,Pittsburgh(1-0),0,14,10,14,38
-9,2016,Sun 10/9,Washington(0-1),6,0,3,7,16
-10,2016,Sun 10/16,Pittsburgh(1-0),0,14,10,14,38
-11,2016,Sun 10/16,Washington(0-1),6,0,3,7,16
-12,2016,Sun 10/23,Pittsburgh(1-0),0,14,10,14,38
-13,2016,Sun 10/23,Washington(0-1),6,0,3,7,16
-14,2016,Sun 10/30,Pittsburgh(1-0),0,14,10,14,38
-15,2016,Sun 10/30,Washington(0-1),6,0,3,7,16
-16,2016,Sun 11/13,Pittsburgh(1-0),0,14,10,14,38
-17,2016,Sun 11/13,Washington(0-1),6,0,3,7,16
-18,2016,Sun 11/20,Pittsburgh(1-0),0,14,10,14,38
-19,2016,Sun 11/20,Washington(0-1),6,0,3,7,16
-20,2016,Thu 11/24,Pittsburgh(1-0),0,14,10,14,38
-21,2016,Thu 11/24,Washington(0-1),6,0,3,7,16
-22,2016,Sun 12/4,Pittsburgh(1-0),0,14,10,14,38
-23,2016,Sun 12/4,Washington(0-1),6,0,3,7,16
-24,2016,Sun 12/11,Pittsburgh(1-0),0,14,10,14,38
-25,2016,Sun 12/11,Washington(0-1),6,0,3,7,16
-26,2016,Mon 12/19,Pittsburgh(1-0),0,14,10,14,38
-27,2016,Mon 12/19,Washington(0-1),6,0,3,7,16
-28,2016,Sat 12/24,Pittsburgh(1-0),0,14,10,14,38
-29,2016,Sat 12/24,Washington(0-1),6,0,3,7,16
-30,2016,Sun 1/1,Pittsburgh(1-0),0,14,10,14,38
-31,2016,Sun 1/1,Washington(0-1),6,0,3,7,16
-32,2016,Thu 8/11,Pittsburgh(1-0),0,14,10,14,38
-33,2016,Thu 8/11,Washington(0-1),6,0,3,7,16
-34,2016,Fri 8/19,Pittsburgh(1-0),0,14,10,14,38
-35,2016,Fri 8/19,Washington(0-1),6,0,3,7,16
-36,2016,Fri 8/26,Pittsburgh(1-0),0,14,10,14,38
-37,2016,Fri 8/26,Washington(0-1),6,0,3,7,16
-38,2016,Wed 8/31,Pittsburgh(1-0),0,14,10,14,38
-39,2016,Wed 8/31,Washington(0-1),6,0,3,7,16
+,year,date,team,final
+0,2016,Mon 9/12,Pittsburgh(1-0),38
+1,2016,Mon 9/12,Washington(0-1),16
+2,2016,Sun 9/18,Dallas(1-1),27
+3,2016,Sun 9/18,Washington(0-2),23
+4,2016,Sun 9/25,Washington(1-2),29
+5,2016,Sun 9/25,NY Giants(2-1),27
+6,2016,Sun 10/2,Cleveland(0-4),20
+7,2016,Sun 10/2,Washington(2-2),31
+8,2016,Sun 10/9,Washington(3-2),16
+9,2016,Sun 10/9,Baltimore(3-2),10
+10,2016,Sun 10/16,Philadelphia(3-2),20
+11,2016,Sun 10/16,Washington(4-2),27
+12,2016,Sun 10/23,Washington(4-3),17
+13,2016,Sun 10/23,Detroit(4-3),20
+14,2016,Sun 10/30,Washington(4-3-1),27
+15,2016,Sun 10/30,Cincinnati(3-4-1),27
+16,2016,Sun 11/13,Minnesota(5-4),20
+17,2016,Sun 11/13,Washington(5-3-1),26
+18,2016,Sun 11/20,Green Bay(4-6),24
+19,2016,Sun 11/20,Washington(6-3-1),42
+20,2016,Thu 11/24,Washington(6-4-1),26
+21,2016,Thu 11/24,Dallas(10-1),31
+22,2016,Sun 12/4,Washington(6-5-1),23
+23,2016,Sun 12/4,Arizona(5-6-1),31
+24,2016,Sun 12/11,Washington(7-5-1),27
+25,2016,Sun 12/11,Philadelphia(5-8),22
+26,2016,Mon 12/19,Carolina(6-8),26
+27,2016,Mon 12/19,Washington(7-6-1),15
+28,2016,Sat 12/24,Washington(8-6-1),41
+29,2016,Sat 12/24,Chicago(3-12),21
+30,2016,Sun 1/1,NY Giants(11-5),19
+31,2016,Sun 1/1,Washington(8-7-1),10
+32,2016,Thu 8/11,Washington(0-1),17
+33,2016,Thu 8/11,Atlanta(1-0),23
+34,2016,Fri 8/19,NY Jets(1-1),18
+35,2016,Fri 8/19,Washington(1-1),22
+36,2016,Fri 8/26,Buffalo(1-2),16
+37,2016,Fri 8/26,Washington(2-1),21
+38,2016,Wed 8/31,Washington(3-1),20
+39,2016,Wed 8/31,Tampa Bay(2-2),13

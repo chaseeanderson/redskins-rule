@@ -1,45 +1,45 @@
-,year,date,team,q1,q2,q3,q4,final
-0,1987,1987 NFC Divisional Playoff Game,Washington(11-4),0,14,7,0,21
-1,1987,1987 NFC Divisional Playoff Game,Chicago(11-4),7,7,3,0,17
-2,1987,1987 NFC Championship Game,Washington(11-4),0,14,7,0,21
-3,1987,1987 NFC Championship Game,Chicago(11-4),7,7,3,0,17
-4,1987,Super Bowl XXII,Washington(11-4),0,14,7,0,21
-5,1987,Super Bowl XXII,Chicago(11-4),7,7,3,0,17
-6,1987,Sun 9/13,Washington(11-4),0,14,7,0,21
-7,1987,Sun 9/13,Chicago(11-4),7,7,3,0,17
-8,1987,Sun 9/20,Washington(11-4),0,14,7,0,21
-9,1987,Sun 9/20,Chicago(11-4),7,7,3,0,17
-10,1987,Sun 10/4,Washington(11-4),0,14,7,0,21
-11,1987,Sun 10/4,Chicago(11-4),7,7,3,0,17
-12,1987,Sun 10/11,Washington(11-4),0,14,7,0,21
-13,1987,Sun 10/11,Chicago(11-4),7,7,3,0,17
-14,1987,Mon 10/19,Washington(11-4),0,14,7,0,21
-15,1987,Mon 10/19,Chicago(11-4),7,7,3,0,17
-16,1987,Sun 10/25,Washington(11-4),0,14,7,0,21
-17,1987,Sun 10/25,Chicago(11-4),7,7,3,0,17
-18,1987,Sun 11/1,Washington(11-4),0,14,7,0,21
-19,1987,Sun 11/1,Chicago(11-4),7,7,3,0,17
-20,1987,Sun 11/8,Washington(11-4),0,14,7,0,21
-21,1987,Sun 11/8,Chicago(11-4),7,7,3,0,17
-22,1987,Sun 11/15,Washington(11-4),0,14,7,0,21
-23,1987,Sun 11/15,Chicago(11-4),7,7,3,0,17
-24,1987,Mon 11/23,Washington(11-4),0,14,7,0,21
-25,1987,Mon 11/23,Chicago(11-4),7,7,3,0,17
-26,1987,Sun 11/29,Washington(11-4),0,14,7,0,21
-27,1987,Sun 11/29,Chicago(11-4),7,7,3,0,17
-28,1987,Sun 12/6,Washington(11-4),0,14,7,0,21
-29,1987,Sun 12/6,Chicago(11-4),7,7,3,0,17
-30,1987,Sun 12/13,Washington(11-4),0,14,7,0,21
-31,1987,Sun 12/13,Chicago(11-4),7,7,3,0,17
-32,1987,Sun 12/20,Washington(11-4),0,14,7,0,21
-33,1987,Sun 12/20,Chicago(11-4),7,7,3,0,17
-34,1987,Sat 12/26,Washington(11-4),0,14,7,0,21
-35,1987,Sat 12/26,Chicago(11-4),7,7,3,0,17
-36,1987,"Friday, August 14, 1987",Washington(11-4),0,14,7,0,21
-37,1987,"Friday, August 14, 1987",Chicago(11-4),7,7,3,0,17
-38,1987,"Saturday, August 22, 1987",Washington(11-4),0,14,7,0,21
-39,1987,"Saturday, August 22, 1987",Chicago(11-4),7,7,3,0,17
-40,1987,"Saturday, August 29, 1987",Washington(11-4),0,14,7,0,21
-41,1987,"Saturday, August 29, 1987",Chicago(11-4),7,7,3,0,17
-42,1987,"Saturday, September 5, 1987",Washington(11-4),0,14,7,0,21
-43,1987,"Saturday, September 5, 1987",Chicago(11-4),7,7,3,0,17
+,year,date,team,final
+0,1987,1987 NFC Divisional Playoff Game,Washington(11-4),21
+1,1987,1987 NFC Divisional Playoff Game,Chicago(11-4),17
+2,1987,1987 NFC Championship Game,Minnesota(8-7),10
+3,1987,1987 NFC Championship Game,Washington(11-4),17
+4,1987,Super Bowl XXII,Washington(11-4),42
+5,1987,Super Bowl XXII,Denver(10-4-1),10
+6,1987,Sun 9/13,Philadelphia(0-1),24
+7,1987,Sun 9/13,Washington(1-0),34
+8,1987,Sun 9/20,Washington(1-1),20
+9,1987,Sun 9/20,Atlanta(1-1),21
+10,1987,Sun 10/4,St. Louis(1-2),21
+11,1987,Sun 10/4,Washington(2-1),28
+12,1987,Sun 10/11,Washington(3-1),38
+13,1987,Sun 10/11,NY Giants(0-4),12
+14,1987,Mon 10/19,Washington(4-1),13
+15,1987,Mon 10/19,Dallas(3-2),7
+16,1987,Sun 10/25,NY Jets(3-3),16
+17,1987,Sun 10/25,Washington(5-1),17
+18,1987,Sun 11/1,Washington(6-1),27
+19,1987,Sun 11/1,Buffalo(3-4),7
+20,1987,Sun 11/8,Washington(6-2),27
+21,1987,Sun 11/8,Philadelphia(4-4),31
+22,1987,Sun 11/15,Detroit(2-7),13
+23,1987,Sun 11/15,Washington(7-2),20
+24,1987,Mon 11/23,LA Rams(3-7),30
+25,1987,Mon 11/23,Washington(7-3),26
+26,1987,Sun 11/29,NY Giants(3-8),19
+27,1987,Sun 11/29,Washington(8-3),23
+28,1987,Sun 12/6,Washington(9-3),34
+29,1987,Sun 12/6,St. Louis(5-7),17
+30,1987,Sun 12/13,Dallas(5-8),20
+31,1987,Sun 12/13,Washington(10-3),24
+32,1987,Sun 12/20,Washington(10-4),21
+33,1987,Sun 12/20,Miami(8-6),23
+34,1987,Sat 12/26,Washington(11-4),27
+35,1987,Sat 12/26,Minnesota(8-7),24
+36,1987,"Friday, August 14, 1987",Pittsburgh(0-1),17
+37,1987,"Friday, August 14, 1987",Washington(1-0),23
+38,1987,"Saturday, August 22, 1987",Washington(2-0),33
+39,1987,"Saturday, August 22, 1987",Green Bay(0-2),0
+40,1987,"Saturday, August 29, 1987",Washington(2-1),10
+41,1987,"Saturday, August 29, 1987",Tampa Bay(2-1),17
+42,1987,"Saturday, September 5, 1987",Washington(3-1),26
+43,1987,"Saturday, September 5, 1987",LA Rams(3-2),14

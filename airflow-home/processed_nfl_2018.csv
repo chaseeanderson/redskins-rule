@@ -1,41 +1,41 @@
-,year,date,team,q1,q2,q3,q4,final
-0,2018,Sun 9/9,Washington(1-0),0,21,0,3,24
-1,2018,Sun 9/9,Arizona(0-1),0,0,0,6,6
-2,2018,Sun 9/16,Washington(1-0),0,21,0,3,24
-3,2018,Sun 9/16,Arizona(0-1),0,0,0,6,6
-4,2018,Sun 9/23,Washington(1-0),0,21,0,3,24
-5,2018,Sun 9/23,Arizona(0-1),0,0,0,6,6
-6,2018,Mon 10/8,Washington(1-0),0,21,0,3,24
-7,2018,Mon 10/8,Arizona(0-1),0,0,0,6,6
-8,2018,Sun 10/14,Washington(1-0),0,21,0,3,24
-9,2018,Sun 10/14,Arizona(0-1),0,0,0,6,6
-10,2018,Sun 10/21,Washington(1-0),0,21,0,3,24
-11,2018,Sun 10/21,Arizona(0-1),0,0,0,6,6
-12,2018,Sun 10/28,Washington(1-0),0,21,0,3,24
-13,2018,Sun 10/28,Arizona(0-1),0,0,0,6,6
-14,2018,Sun 11/4,Washington(1-0),0,21,0,3,24
-15,2018,Sun 11/4,Arizona(0-1),0,0,0,6,6
-16,2018,Sun 11/11,Washington(1-0),0,21,0,3,24
-17,2018,Sun 11/11,Arizona(0-1),0,0,0,6,6
-18,2018,Sun 11/18,Washington(1-0),0,21,0,3,24
-19,2018,Sun 11/18,Arizona(0-1),0,0,0,6,6
-20,2018,Thu 11/22,Washington(1-0),0,21,0,3,24
-21,2018,Thu 11/22,Arizona(0-1),0,0,0,6,6
-22,2018,Mon 12/3,Washington(1-0),0,21,0,3,24
-23,2018,Mon 12/3,Arizona(0-1),0,0,0,6,6
-24,2018,Sun 12/9,Washington(1-0),0,21,0,3,24
-25,2018,Sun 12/9,Arizona(0-1),0,0,0,6,6
-26,2018,Sun 12/16,Washington(1-0),0,21,0,3,24
-27,2018,Sun 12/16,Arizona(0-1),0,0,0,6,6
-28,2018,Sat 12/22,Washington(1-0),0,21,0,3,24
-29,2018,Sat 12/22,Arizona(0-1),0,0,0,6,6
-30,2018,Sun 12/30,Washington(1-0),0,21,0,3,24
-31,2018,Sun 12/30,Arizona(0-1),0,0,0,6,6
-32,2018,Thu 8/9,Washington(1-0),0,21,0,3,24
-33,2018,Thu 8/9,Arizona(0-1),0,0,0,6,6
-34,2018,Thu 8/16,Washington(1-0),0,21,0,3,24
-35,2018,Thu 8/16,Arizona(0-1),0,0,0,6,6
-36,2018,Fri 8/24,Washington(1-0),0,21,0,3,24
-37,2018,Fri 8/24,Arizona(0-1),0,0,0,6,6
-38,2018,Thu 8/30,Washington(1-0),0,21,0,3,24
-39,2018,Thu 8/30,Arizona(0-1),0,0,0,6,6
+,year,date,team,final
+0,2018,Sun 9/9,Washington(1-0),24
+1,2018,Sun 9/9,Arizona(0-1),6
+2,2018,Sun 9/16,Indianapolis(1-1),21
+3,2018,Sun 9/16,Washington(1-1),9
+4,2018,Sun 9/23,Green Bay(1-1-1),17
+5,2018,Sun 9/23,Washington(2-1),31
+6,2018,Mon 10/8,Washington(2-2),19
+7,2018,Mon 10/8,New Orleans(4-1),43
+8,2018,Sun 10/14,Carolina(3-2),17
+9,2018,Sun 10/14,Washington(3-2),23
+10,2018,Sun 10/21,Dallas(3-4),17
+11,2018,Sun 10/21,Washington(4-2),20
+12,2018,Sun 10/28,Washington(5-2),20
+13,2018,Sun 10/28,NY Giants(1-7),13
+14,2018,Sun 11/4,Atlanta(4-4),38
+15,2018,Sun 11/4,Washington(5-3),14
+16,2018,Sun 11/11,Washington(6-3),16
+17,2018,Sun 11/11,Tampa Bay(3-6),3
+18,2018,Sun 11/18,Houston(7-3),23
+19,2018,Sun 11/18,Washington(6-4),21
+20,2018,Thu 11/22,Washington(6-5),23
+21,2018,Thu 11/22,Dallas(6-5),31
+22,2018,Mon 12/3,Washington(6-6),13
+23,2018,Mon 12/3,Philadelphia(6-6),28
+24,2018,Sun 12/9,NY Giants(5-8),40
+25,2018,Sun 12/9,Washington(6-7),16
+26,2018,Sun 12/16,Washington(7-7),16
+27,2018,Sun 12/16,Jacksonville(4-10),13
+28,2018,Sat 12/22,Washington(7-8),16
+29,2018,Sat 12/22,Tennessee(9-6),25
+30,2018,Sun 12/30,Philadelphia(9-7),24
+31,2018,Sun 12/30,Washington(7-9),0
+32,2018,Thu 8/9,Washington(0-1),17
+33,2018,Thu 8/9,New England(1-0),26
+34,2018,Thu 8/16,NY Jets(1-1),13
+35,2018,Thu 8/16,Washington(1-1),15
+36,2018,Fri 8/24,Denver(1-2),29
+37,2018,Fri 8/24,Washington(1-2),17
+38,2018,Thu 8/30,Washington(1-3),20
+39,2018,Thu 8/30,Baltimore(5-0),30
