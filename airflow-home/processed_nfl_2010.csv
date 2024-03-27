@@ -1,41 +1,41 @@
-,year,date,team,q1,q2,q3,q4,final
-0,2010,Sun 9/12,Dallas(0-1),0,0,7,0,7
-1,2010,Sun 9/12,Washington(1-0),3,7,0,3,13
-2,2010,Sun 9/19,Dallas(0-1),0,0,7,0,7
-3,2010,Sun 9/19,Washington(1-0),3,7,0,3,13
-4,2010,Sun 9/26,Dallas(0-1),0,0,7,0,7
-5,2010,Sun 9/26,Washington(1-0),3,7,0,3,13
-6,2010,Sun 10/3,Dallas(0-1),0,0,7,0,7
-7,2010,Sun 10/3,Washington(1-0),3,7,0,3,13
-8,2010,Sun 10/10,Dallas(0-1),0,0,7,0,7
-9,2010,Sun 10/10,Washington(1-0),3,7,0,3,13
-10,2010,Sun 10/17,Dallas(0-1),0,0,7,0,7
-11,2010,Sun 10/17,Washington(1-0),3,7,0,3,13
-12,2010,Sun 10/24,Dallas(0-1),0,0,7,0,7
-13,2010,Sun 10/24,Washington(1-0),3,7,0,3,13
-14,2010,Sun 10/31,Dallas(0-1),0,0,7,0,7
-15,2010,Sun 10/31,Washington(1-0),3,7,0,3,13
-16,2010,Mon 11/15,Dallas(0-1),0,0,7,0,7
-17,2010,Mon 11/15,Washington(1-0),3,7,0,3,13
-18,2010,Sun 11/21,Dallas(0-1),0,0,7,0,7
-19,2010,Sun 11/21,Washington(1-0),3,7,0,3,13
-20,2010,Sun 11/28,Dallas(0-1),0,0,7,0,7
-21,2010,Sun 11/28,Washington(1-0),3,7,0,3,13
-22,2010,Sun 12/5,Dallas(0-1),0,0,7,0,7
-23,2010,Sun 12/5,Washington(1-0),3,7,0,3,13
-24,2010,Sun 12/12,Dallas(0-1),0,0,7,0,7
-25,2010,Sun 12/12,Washington(1-0),3,7,0,3,13
-26,2010,Sun 12/19,Dallas(0-1),0,0,7,0,7
-27,2010,Sun 12/19,Washington(1-0),3,7,0,3,13
-28,2010,Sun 12/26,Dallas(0-1),0,0,7,0,7
-29,2010,Sun 12/26,Washington(1-0),3,7,0,3,13
-30,2010,Sun 1/2,Dallas(0-1),0,0,7,0,7
-31,2010,Sun 1/2,Washington(1-0),3,7,0,3,13
-32,2010,Fri 8/13,Dallas(0-1),0,0,7,0,7
-33,2010,Fri 8/13,Washington(1-0),3,7,0,3,13
-34,2010,Sat 8/21,Dallas(0-1),0,0,7,0,7
-35,2010,Sat 8/21,Washington(1-0),3,7,0,3,13
-36,2010,Fri 8/27,Dallas(0-1),0,0,7,0,7
-37,2010,Fri 8/27,Washington(1-0),3,7,0,3,13
-38,2010,Thu 9/2,Dallas(0-1),0,0,7,0,7
-39,2010,Thu 9/2,Washington(1-0),3,7,0,3,13
+,year,date,team,final
+0,2010,Sun 9/12,Dallas(0-1),7
+1,2010,Sun 9/12,Washington(1-0),13
+2,2010,Sun 9/19,Houston(2-0),30
+3,2010,Sun 9/19,Washington(1-1),27
+4,2010,Sun 9/26,Washington(1-2),16
+5,2010,Sun 9/26,St. Louis(1-2),30
+6,2010,Sun 10/3,Washington(2-2),17
+7,2010,Sun 10/3,Philadelphia(2-2),12
+8,2010,Sun 10/10,Green Bay(3-2),13
+9,2010,Sun 10/10,Washington(3-2),16
+10,2010,Sun 10/17,Indianapolis(4-2),27
+11,2010,Sun 10/17,Washington(3-3),24
+12,2010,Sun 10/24,Washington(4-3),17
+13,2010,Sun 10/24,Chicago(4-3),14
+14,2010,Sun 10/31,Washington(4-4),25
+15,2010,Sun 10/31,Detroit(2-5),37
+16,2010,Mon 11/15,Philadelphia(6-3),59
+17,2010,Mon 11/15,Washington(4-5),28
+18,2010,Sun 11/21,Washington(5-5),19
+19,2010,Sun 11/21,Tennessee(5-5),16
+20,2010,Sun 11/28,Minnesota(4-7),17
+21,2010,Sun 11/28,Washington(5-6),13
+22,2010,Sun 12/5,Washington(5-7),7
+23,2010,Sun 12/5,NY Giants(8-4),31
+24,2010,Sun 12/12,Tampa Bay(8-5),17
+25,2010,Sun 12/12,Washington(5-8),16
+26,2010,Sun 12/19,Washington(5-9),30
+27,2010,Sun 12/19,Dallas(5-9),33
+28,2010,Sun 12/26,Washington(6-9),20
+29,2010,Sun 12/26,Jacksonville(8-7),17
+30,2010,Sun 1/2,NY Giants(10-6),17
+31,2010,Sun 1/2,Washington(6-10),14
+32,2010,Fri 8/13,Buffalo(0-1),17
+33,2010,Fri 8/13,Washington(1-0),42
+34,2010,Sat 8/21,Baltimore(2-0),23
+35,2010,Sat 8/21,Washington(1-1),3
+36,2010,Fri 8/27,Washington(2-1),16
+37,2010,Fri 8/27,NY Jets(1-2),11
+38,2010,Thu 9/2,Washington(2-2),10
+39,2010,Thu 9/2,Arizona(3-1),20

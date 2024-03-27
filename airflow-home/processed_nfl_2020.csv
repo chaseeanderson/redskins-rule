@@ -1,43 +1,43 @@
-,year,date,team,q1,q2,q3,q4,final
-0,2020,NFC Wild Card Game,Tampa Bay(11-5),9,9,0,13,31
-1,2020,NFC Wild Card Game,Washington(7-9),0,7,9,7,23
-2,2020,Sun 9/13,Tampa Bay(11-5),9,9,0,13,31
-3,2020,Sun 9/13,Washington(7-9),0,7,9,7,23
-4,2020,Sun 9/20,Tampa Bay(11-5),9,9,0,13,31
-5,2020,Sun 9/20,Washington(7-9),0,7,9,7,23
-6,2020,Sun 9/27,Tampa Bay(11-5),9,9,0,13,31
-7,2020,Sun 9/27,Washington(7-9),0,7,9,7,23
-8,2020,Sun 10/4,Tampa Bay(11-5),9,9,0,13,31
-9,2020,Sun 10/4,Washington(7-9),0,7,9,7,23
-10,2020,Sun 10/11,Tampa Bay(11-5),9,9,0,13,31
-11,2020,Sun 10/11,Washington(7-9),0,7,9,7,23
-12,2020,Sun 10/18,Tampa Bay(11-5),9,9,0,13,31
-13,2020,Sun 10/18,Washington(7-9),0,7,9,7,23
-14,2020,Sun 10/25,Tampa Bay(11-5),9,9,0,13,31
-15,2020,Sun 10/25,Washington(7-9),0,7,9,7,23
-16,2020,Sun 11/8,Tampa Bay(11-5),9,9,0,13,31
-17,2020,Sun 11/8,Washington(7-9),0,7,9,7,23
-18,2020,Sun 11/15,Tampa Bay(11-5),9,9,0,13,31
-19,2020,Sun 11/15,Washington(7-9),0,7,9,7,23
-20,2020,Sun 11/22,Tampa Bay(11-5),9,9,0,13,31
-21,2020,Sun 11/22,Washington(7-9),0,7,9,7,23
-22,2020,Thu 11/26,Tampa Bay(11-5),9,9,0,13,31
-23,2020,Thu 11/26,Washington(7-9),0,7,9,7,23
-24,2020,Mon 12/7,Tampa Bay(11-5),9,9,0,13,31
-25,2020,Mon 12/7,Washington(7-9),0,7,9,7,23
-26,2020,Sun 12/13,Tampa Bay(11-5),9,9,0,13,31
-27,2020,Sun 12/13,Washington(7-9),0,7,9,7,23
-28,2020,Sun 12/20,Tampa Bay(11-5),9,9,0,13,31
-29,2020,Sun 12/20,Washington(7-9),0,7,9,7,23
-30,2020,Sun 12/27,Tampa Bay(11-5),9,9,0,13,31
-31,2020,Sun 12/27,Washington(7-9),0,7,9,7,23
-32,2020,Sun 1/3,Tampa Bay(11-5),9,9,0,13,31
-33,2020,Sun 1/3,Washington(7-9),0,7,9,7,23
-34,2020,"Saturday, August 15, 2020",Tampa Bay(11-5),9,9,0,13,31
-35,2020,"Saturday, August 15, 2020",Washington(7-9),0,7,9,7,23
-36,2020,"Monday, August 24, 2020",Tampa Bay(11-5),9,9,0,13,31
-37,2020,"Monday, August 24, 2020",Washington(7-9),0,7,9,7,23
-38,2020,"Saturday, August 29, 2020",Tampa Bay(11-5),9,9,0,13,31
-39,2020,"Saturday, August 29, 2020",Washington(7-9),0,7,9,7,23
-40,2020,"Thursday, September 3, 2020",Tampa Bay(11-5),9,9,0,13,31
-41,2020,"Thursday, September 3, 2020",Washington(7-9),0,7,9,7,23
+,year,date,team,final
+0,2020,NFC Wild Card Game,Tampa Bay(11-5),31
+1,2020,NFC Wild Card Game,Washington(7-9),23
+2,2020,Sun 9/13,Philadelphia(0-1),17
+3,2020,Sun 9/13,Washington(1-0),27
+4,2020,Sun 9/20,Washington(1-1),15
+5,2020,Sun 9/20,Arizona(2-0),30
+6,2020,Sun 9/27,Washington(1-2),20
+7,2020,Sun 9/27,Cleveland(2-1),34
+8,2020,Sun 10/4,Baltimore(3-1),31
+9,2020,Sun 10/4,Washington(1-3),17
+10,2020,Sun 10/11,LA Rams(4-1),30
+11,2020,Sun 10/11,Washington(1-4),10
+12,2020,Sun 10/18,Washington(1-5),19
+13,2020,Sun 10/18,NY Giants(1-5),20
+14,2020,Sun 10/25,Dallas(2-5),3
+15,2020,Sun 10/25,Washington(2-5),25
+16,2020,Sun 11/8,NY Giants(2-7),23
+17,2020,Sun 11/8,Washington(2-6),20
+18,2020,Sun 11/15,Washington(2-7),27
+19,2020,Sun 11/15,Detroit(4-5),30
+20,2020,Sun 11/22,Cincinnati(2-7-1),9
+21,2020,Sun 11/22,Washington(3-7),20
+22,2020,Thu 11/26,Washington(4-7),41
+23,2020,Thu 11/26,Dallas(3-8),16
+24,2020,Mon 12/7,Washington(5-7),23
+25,2020,Mon 12/7,Pittsburgh(11-1),17
+26,2020,Sun 12/13,Washington(6-7),23
+27,2020,Sun 12/13,San Francisco(5-8),15
+28,2020,Sun 12/20,Seattle(10-4),20
+29,2020,Sun 12/20,Washington(6-8),15
+30,2020,Sun 12/27,Carolina(5-10),20
+31,2020,Sun 12/27,Washington(6-9),13
+32,2020,Sun 1/3,Washington(7-9),20
+33,2020,Sun 1/3,Philadelphia(4-11-1),14
+34,2020,"Saturday, August 15, 2020",Tennessee(0-0),--
+35,2020,"Saturday, August 15, 2020",Washington(0-0),--
+36,2020,"Monday, August 24, 2020",Washington(0-0),--
+37,2020,"Monday, August 24, 2020",Indianapolis(0-0),--
+38,2020,"Saturday, August 29, 2020",Washington(0-0),--
+39,2020,"Saturday, August 29, 2020",Jacksonville(0-0),--
+40,2020,"Thursday, September 3, 2020",Baltimore(0-0),--
+41,2020,"Thursday, September 3, 2020",Washington(0-0),--

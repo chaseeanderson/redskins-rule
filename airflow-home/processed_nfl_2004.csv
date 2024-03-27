@@ -1,43 +1,43 @@
-,year,date,team,q1,q2,q3,q4,final
-0,2004,Sun 9/12,Tampa Bay(0-1),0,3,7,0,10
-1,2004,Sun 9/12,Washington(1-0),7,3,0,6,16
-2,2004,Sun 9/19,Tampa Bay(0-1),0,3,7,0,10
-3,2004,Sun 9/19,Washington(1-0),7,3,0,6,16
-4,2004,Mon 9/27,Tampa Bay(0-1),0,3,7,0,10
-5,2004,Mon 9/27,Washington(1-0),7,3,0,6,16
-6,2004,Sun 10/3,Tampa Bay(0-1),0,3,7,0,10
-7,2004,Sun 10/3,Washington(1-0),7,3,0,6,16
-8,2004,Sun 10/10,Tampa Bay(0-1),0,3,7,0,10
-9,2004,Sun 10/10,Washington(1-0),7,3,0,6,16
-10,2004,Sun 10/17,Tampa Bay(0-1),0,3,7,0,10
-11,2004,Sun 10/17,Washington(1-0),7,3,0,6,16
-12,2004,Sun 10/31,Tampa Bay(0-1),0,3,7,0,10
-13,2004,Sun 10/31,Washington(1-0),7,3,0,6,16
-14,2004,Sun 11/7,Tampa Bay(0-1),0,3,7,0,10
-15,2004,Sun 11/7,Washington(1-0),7,3,0,6,16
-16,2004,Sun 11/14,Tampa Bay(0-1),0,3,7,0,10
-17,2004,Sun 11/14,Washington(1-0),7,3,0,6,16
-18,2004,Sun 11/21,Tampa Bay(0-1),0,3,7,0,10
-19,2004,Sun 11/21,Washington(1-0),7,3,0,6,16
-20,2004,Sun 11/28,Tampa Bay(0-1),0,3,7,0,10
-21,2004,Sun 11/28,Washington(1-0),7,3,0,6,16
-22,2004,Sun 12/5,Tampa Bay(0-1),0,3,7,0,10
-23,2004,Sun 12/5,Washington(1-0),7,3,0,6,16
-24,2004,Sun 12/12,Tampa Bay(0-1),0,3,7,0,10
-25,2004,Sun 12/12,Washington(1-0),7,3,0,6,16
-26,2004,Sat 12/18,Tampa Bay(0-1),0,3,7,0,10
-27,2004,Sat 12/18,Washington(1-0),7,3,0,6,16
-28,2004,Sun 12/26,Tampa Bay(0-1),0,3,7,0,10
-29,2004,Sun 12/26,Washington(1-0),7,3,0,6,16
-30,2004,Sun 1/2,Tampa Bay(0-1),0,3,7,0,10
-31,2004,Sun 1/2,Washington(1-0),7,3,0,6,16
-32,2004,Hall of Fame Game,Tampa Bay(0-1),0,3,7,0,10
-33,2004,Hall of Fame Game,Washington(1-0),7,3,0,6,16
-34,2004,Sat 8/14,Tampa Bay(0-1),0,3,7,0,10
-35,2004,Sat 8/14,Washington(1-0),7,3,0,6,16
-36,2004,Sat 8/21,Tampa Bay(0-1),0,3,7,0,10
-37,2004,Sat 8/21,Washington(1-0),7,3,0,6,16
-38,2004,Fri 8/27,Tampa Bay(0-1),0,3,7,0,10
-39,2004,Fri 8/27,Washington(1-0),7,3,0,6,16
-40,2004,Fri 9/3,Tampa Bay(0-1),0,3,7,0,10
-41,2004,Fri 9/3,Washington(1-0),7,3,0,6,16
+,year,date,team,final
+0,2004,Sun 9/12,Tampa Bay(0-1),10
+1,2004,Sun 9/12,Washington(1-0),16
+2,2004,Sun 9/19,Washington(1-1),14
+3,2004,Sun 9/19,NY Giants(1-1),20
+4,2004,Mon 9/27,Dallas(2-1),21
+5,2004,Mon 9/27,Washington(1-2),18
+6,2004,Sun 10/3,Washington(1-3),13
+7,2004,Sun 10/3,Cleveland(2-2),17
+8,2004,Sun 10/10,Baltimore(3-2),17
+9,2004,Sun 10/10,Washington(1-4),10
+10,2004,Sun 10/17,Washington(2-4),13
+11,2004,Sun 10/17,Chicago(1-4),10
+12,2004,Sun 10/31,Green Bay(4-4),28
+13,2004,Sun 10/31,Washington(2-5),14
+14,2004,Sun 11/7,Washington(3-5),17
+15,2004,Sun 11/7,Detroit(4-4),10
+16,2004,Sun 11/14,Cincinnati(4-5),17
+17,2004,Sun 11/14,Washington(3-6),10
+18,2004,Sun 11/21,Washington(3-7),6
+19,2004,Sun 11/21,Philadelphia(9-1),28
+20,2004,Sun 11/28,Washington(3-8),7
+21,2004,Sun 11/28,Pittsburgh(10-1),16
+22,2004,Sun 12/5,NY Giants(5-7),7
+23,2004,Sun 12/5,Washington(4-8),31
+24,2004,Sun 12/12,Philadelphia(12-1),17
+25,2004,Sun 12/12,Washington(4-9),14
+26,2004,Sat 12/18,Washington(5-9),26
+27,2004,Sat 12/18,San Francisco(2-12),16
+28,2004,Sun 12/26,Washington(5-10),10
+29,2004,Sun 12/26,Dallas(6-9),13
+30,2004,Sun 1/2,Minnesota(8-8),18
+31,2004,Sun 1/2,Washington(6-10),21
+32,2004,Hall of Fame Game,Denver(0-1),17
+33,2004,Hall of Fame Game,Washington(1-0),20
+34,2004,Sat 8/14,Carolina(1-0),23
+35,2004,Sat 8/14,Washington(1-1),20
+36,2004,Sat 8/21,Washington(2-1),17
+37,2004,Sat 8/21,Miami(1-1),0
+38,2004,Fri 8/27,Washington(2-2),3
+39,2004,Fri 8/27,St. Louis(1-2),28
+40,2004,Fri 9/3,Atlanta(2-2),0
+41,2004,Fri 9/3,Washington(3-2),27

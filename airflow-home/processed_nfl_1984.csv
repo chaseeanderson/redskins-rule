@@ -1,43 +1,43 @@
-,year,date,team,q1,q2,q3,q4,final
-0,1984,1984 NFC Divisional Playoff Game,Chicago(10-6),0,10,13,0,23
-1,1984,1984 NFC Divisional Playoff Game,Washington(11-5),3,0,14,2,19
-2,1984,Sun 9/2,Chicago(10-6),0,10,13,0,23
-3,1984,Sun 9/2,Washington(11-5),3,0,14,2,19
-4,1984,Mon 9/10,Chicago(10-6),0,10,13,0,23
-5,1984,Mon 9/10,Washington(11-5),3,0,14,2,19
-6,1984,Sun 9/16,Chicago(10-6),0,10,13,0,23
-7,1984,Sun 9/16,Washington(11-5),3,0,14,2,19
-8,1984,Sun 9/23,Chicago(10-6),0,10,13,0,23
-9,1984,Sun 9/23,Washington(11-5),3,0,14,2,19
-10,1984,Sun 9/30,Chicago(10-6),0,10,13,0,23
-11,1984,Sun 9/30,Washington(11-5),3,0,14,2,19
-12,1984,Sun 10/7,Chicago(10-6),0,10,13,0,23
-13,1984,Sun 10/7,Washington(11-5),3,0,14,2,19
-14,1984,Sun 10/14,Chicago(10-6),0,10,13,0,23
-15,1984,Sun 10/14,Washington(11-5),3,0,14,2,19
-16,1984,Sun 10/21,Chicago(10-6),0,10,13,0,23
-17,1984,Sun 10/21,Washington(11-5),3,0,14,2,19
-18,1984,Sun 10/28,Chicago(10-6),0,10,13,0,23
-19,1984,Sun 10/28,Washington(11-5),3,0,14,2,19
-20,1984,Mon 11/5,Chicago(10-6),0,10,13,0,23
-21,1984,Mon 11/5,Washington(11-5),3,0,14,2,19
-22,1984,Sun 11/11,Chicago(10-6),0,10,13,0,23
-23,1984,Sun 11/11,Washington(11-5),3,0,14,2,19
-24,1984,Sun 11/18,Chicago(10-6),0,10,13,0,23
-25,1984,Sun 11/18,Washington(11-5),3,0,14,2,19
-26,1984,Sun 11/25,Chicago(10-6),0,10,13,0,23
-27,1984,Sun 11/25,Washington(11-5),3,0,14,2,19
-28,1984,Thu 11/29,Chicago(10-6),0,10,13,0,23
-29,1984,Thu 11/29,Washington(11-5),3,0,14,2,19
-30,1984,Sun 12/9,Chicago(10-6),0,10,13,0,23
-31,1984,Sun 12/9,Washington(11-5),3,0,14,2,19
-32,1984,Sun 12/16,Chicago(10-6),0,10,13,0,23
-33,1984,Sun 12/16,Washington(11-5),3,0,14,2,19
-34,1984,"Saturday, August 4, 1984",Chicago(10-6),0,10,13,0,23
-35,1984,"Saturday, August 4, 1984",Washington(11-5),3,0,14,2,19
-36,1984,"Friday, August 10, 1984",Chicago(10-6),0,10,13,0,23
-37,1984,"Friday, August 10, 1984",Washington(11-5),3,0,14,2,19
-38,1984,"Friday, August 17, 1984",Chicago(10-6),0,10,13,0,23
-39,1984,"Friday, August 17, 1984",Washington(11-5),3,0,14,2,19
-40,1984,"Saturday, August 25, 1984",Chicago(10-6),0,10,13,0,23
-41,1984,"Saturday, August 25, 1984",Washington(11-5),3,0,14,2,19
+,year,date,team,final
+0,1984,1984 NFC Divisional Playoff Game,Chicago(10-6),23
+1,1984,1984 NFC Divisional Playoff Game,Washington(11-5),19
+2,1984,Sun 9/2,Miami(1-0),35
+3,1984,Sun 9/2,Washington(0-1),17
+4,1984,Mon 9/10,Washington(0-2),31
+5,1984,Mon 9/10,San Francisco(2-0),37
+6,1984,Sun 9/16,NY Giants(2-1),14
+7,1984,Sun 9/16,Washington(1-2),30
+8,1984,Sun 9/23,Washington(2-2),26
+9,1984,Sun 9/23,New England(2-2),10
+10,1984,Sun 9/30,Philadelphia(1-4),0
+11,1984,Sun 9/30,Washington(3-2),20
+12,1984,Sun 10/7,Washington(4-2),35
+13,1984,Sun 10/7,Indianapolis(2-4),7
+14,1984,Sun 10/14,Dallas(4-3),14
+15,1984,Sun 10/14,Washington(5-2),34
+16,1984,Sun 10/21,Washington(5-3),24
+17,1984,Sun 10/21,St. Louis(5-3),26
+18,1984,Sun 10/28,Washington(5-4),13
+19,1984,Sun 10/28,NY Giants(5-4),37
+20,1984,Mon 11/5,Atlanta(3-7),14
+21,1984,Mon 11/5,Washington(6-4),27
+22,1984,Sun 11/11,Detroit(3-7-1),14
+23,1984,Sun 11/11,Washington(7-4),28
+24,1984,Sun 11/18,Washington(7-5),10
+25,1984,Sun 11/18,Philadelphia(5-6-1),16
+26,1984,Sun 11/25,Buffalo(1-12),14
+27,1984,Sun 11/25,Washington(8-5),41
+28,1984,Thu 11/29,Washington(9-5),31
+29,1984,Thu 11/29,Minnesota(3-11),17
+30,1984,Sun 12/9,Washington(10-5),30
+31,1984,Sun 12/9,Dallas(9-6),28
+32,1984,Sun 12/16,St. Louis(9-7),27
+33,1984,Sun 12/16,Washington(11-5),29
+34,1984,"Saturday, August 4, 1984",Washington(1-0),16
+35,1984,"Saturday, August 4, 1984",Denver(0-1),13
+36,1984,"Friday, August 10, 1984",LA Raiders(1-1),21
+37,1984,"Friday, August 10, 1984",Washington(1-1),20
+38,1984,"Friday, August 17, 1984",New England(1-2),31
+39,1984,"Friday, August 17, 1984",Washington(1-2),27
+40,1984,"Saturday, August 25, 1984",Washington(2-2),14
+41,1984,"Saturday, August 25, 1984",New Orleans(3-1),9

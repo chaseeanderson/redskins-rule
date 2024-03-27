@@ -1,41 +1,41 @@
-,year,date,team,q1,q2,q3,q4,final
-0,2011,Sun 9/11,NY Giants(0-1),7,7,0,0,14
-1,2011,Sun 9/11,Washington(1-0),0,14,7,7,28
-2,2011,Sun 9/18,NY Giants(0-1),7,7,0,0,14
-3,2011,Sun 9/18,Washington(1-0),0,14,7,7,28
-4,2011,Mon 9/26,NY Giants(0-1),7,7,0,0,14
-5,2011,Mon 9/26,Washington(1-0),0,14,7,7,28
-6,2011,Sun 10/2,NY Giants(0-1),7,7,0,0,14
-7,2011,Sun 10/2,Washington(1-0),0,14,7,7,28
-8,2011,Sun 10/16,NY Giants(0-1),7,7,0,0,14
-9,2011,Sun 10/16,Washington(1-0),0,14,7,7,28
-10,2011,Sun 10/23,NY Giants(0-1),7,7,0,0,14
-11,2011,Sun 10/23,Washington(1-0),0,14,7,7,28
-12,2011,Sun 10/30,NY Giants(0-1),7,7,0,0,14
-13,2011,Sun 10/30,Washington(1-0),0,14,7,7,28
-14,2011,Sun 11/6,NY Giants(0-1),7,7,0,0,14
-15,2011,Sun 11/6,Washington(1-0),0,14,7,7,28
-16,2011,Sun 11/13,NY Giants(0-1),7,7,0,0,14
-17,2011,Sun 11/13,Washington(1-0),0,14,7,7,28
-18,2011,Sun 11/20,NY Giants(0-1),7,7,0,0,14
-19,2011,Sun 11/20,Washington(1-0),0,14,7,7,28
-20,2011,Sun 11/27,NY Giants(0-1),7,7,0,0,14
-21,2011,Sun 11/27,Washington(1-0),0,14,7,7,28
-22,2011,Sun 12/4,NY Giants(0-1),7,7,0,0,14
-23,2011,Sun 12/4,Washington(1-0),0,14,7,7,28
-24,2011,Sun 12/11,NY Giants(0-1),7,7,0,0,14
-25,2011,Sun 12/11,Washington(1-0),0,14,7,7,28
-26,2011,Sun 12/18,NY Giants(0-1),7,7,0,0,14
-27,2011,Sun 12/18,Washington(1-0),0,14,7,7,28
-28,2011,Sat 12/24,NY Giants(0-1),7,7,0,0,14
-29,2011,Sat 12/24,Washington(1-0),0,14,7,7,28
-30,2011,Sun 1/1,NY Giants(0-1),7,7,0,0,14
-31,2011,Sun 1/1,Washington(1-0),0,14,7,7,28
-32,2011,Fri 8/12,NY Giants(0-1),7,7,0,0,14
-33,2011,Fri 8/12,Washington(1-0),0,14,7,7,28
-34,2011,Fri 8/19,NY Giants(0-1),7,7,0,0,14
-35,2011,Fri 8/19,Washington(1-0),0,14,7,7,28
-36,2011,Thu 8/25,NY Giants(0-1),7,7,0,0,14
-37,2011,Thu 8/25,Washington(1-0),0,14,7,7,28
-38,2011,Thu 9/1,NY Giants(0-1),7,7,0,0,14
-39,2011,Thu 9/1,Washington(1-0),0,14,7,7,28
+,year,date,team,final
+0,2011,Sun 9/11,NY Giants(0-1),14
+1,2011,Sun 9/11,Washington(1-0),28
+2,2011,Sun 9/18,Arizona(1-1),21
+3,2011,Sun 9/18,Washington(2-0),22
+4,2011,Mon 9/26,Washington(2-1),16
+5,2011,Mon 9/26,Dallas(2-1),18
+6,2011,Sun 10/2,Washington(3-1),17
+7,2011,Sun 10/2,St. Louis(0-4),10
+8,2011,Sun 10/16,Philadelphia(2-4),20
+9,2011,Sun 10/16,Washington(3-2),13
+10,2011,Sun 10/23,Washington(3-3),20
+11,2011,Sun 10/23,Carolina(2-5),33
+12,2011,Sun 10/30,Washington(3-4),0
+13,2011,Sun 10/30,Buffalo(5-2),23
+14,2011,Sun 11/6,San Francisco(7-1),19
+15,2011,Sun 11/6,Washington(3-5),11
+16,2011,Sun 11/13,Washington(3-6),9
+17,2011,Sun 11/13,Miami(2-7),20
+18,2011,Sun 11/20,Dallas(6-4),27
+19,2011,Sun 11/20,Washington(3-7),24
+20,2011,Sun 11/27,Washington(4-7),23
+21,2011,Sun 11/27,Seattle(4-7),17
+22,2011,Sun 12/4,NY Jets(7-5),34
+23,2011,Sun 12/4,Washington(4-8),19
+24,2011,Sun 12/11,New England(10-3),34
+25,2011,Sun 12/11,Washington(4-9),27
+26,2011,Sun 12/18,Washington(5-9),23
+27,2011,Sun 12/18,NY Giants(7-7),10
+28,2011,Sat 12/24,Minnesota(3-12),33
+29,2011,Sat 12/24,Washington(5-10),26
+30,2011,Sun 1/1,Washington(5-11),10
+31,2011,Sun 1/1,Philadelphia(8-8),34
+32,2011,Fri 8/12,Pittsburgh(0-1),7
+33,2011,Fri 8/12,Washington(1-0),16
+34,2011,Fri 8/19,Washington(2-0),16
+35,2011,Fri 8/19,Indianapolis(0-2),3
+36,2011,Thu 8/25,Washington(2-1),31
+37,2011,Thu 8/25,Baltimore(2-1),34
+38,2011,Thu 9/1,Tampa Bay(2-2),24
+39,2011,Thu 9/1,Washington(3-1),29
