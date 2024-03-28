@@ -34,24 +34,9 @@ spark = SparkSession.builder \
 
 # NFL #
 
-# Function to read schema from a Parquet file and explode fields
-def get_raw_nfl_data_and_explode(file_path):
+def get_raw_nfl_data(file_path):
     df = spark.read.parquet(file_path)
-    count = df.count()
-    print(f"exploding data complete...here's the row count {count}")
-    exploded_df = df.withColumn('exp_events', F.explode('events'))
-    exploded_df = exploded_df.withColumn('exp_competitions', F.explode('exp_events.competitions'))
-    exploded_df = exploded_df.withColumn('exp_competitors', F.explode('exp_competitions.competitors'))
-    return exploded_df
-
-# Define empty df to save to
-empty_RDD = spark.sparkContext.emptyRDD()
-nfl_columns = StructType([
-    StructField("date", TimestampNTZType(), True),
-    StructField("id", StringType(), True),
-    StructField("value", DoubleType(), True)
-])
-nfl_df = spark.createDataFrame(data = empty_RDD, schema = nfl_columns)
+    return df
 
 # Get files from GCS and process
 def list_blobs_with_prefix(bucket_name, prefix):
@@ -60,65 +45,73 @@ def list_blobs_with_prefix(bucket_name, prefix):
     return ["gs://" + bucket_name + "/" + blob.name for blob in blobs]
 
 nfl_bucket_name = 'redskins-rule-nfl-game-data'
-nfl_prefix = 'raw/schedule/'
+nfl_prefix = 'raw/schedule/v2/'
 nfl_file_paths = list_blobs_with_prefix(nfl_bucket_name, nfl_prefix)
+
+# Define empty df to save to
+empty_RDD = spark.sparkContext.emptyRDD()
+nfl_columns = StructType([
+    StructField("", StringType(), True),
+    StructField("year", IntegerType(), True),
+    StructField("date", StringType(), True),
+    StructField("team", StringType(), True),
+    StructField("final", StringType(), True)
+])
+nfl_df = spark.createDataFrame(data = empty_RDD, schema = nfl_columns)
 
 for file_path in nfl_file_paths:
     print(f"grabbing file...{file_path}")
-    exploded_df = get_raw_nfl_data_and_explode(file_path)
-    
-    # create a temp table
-    exploded_df.createOrReplaceTempView('temp')
+    df = get_raw_nfl_data(file_path)
+    nfl_df = nfl_df.unionByName(df)
 
-    # transform the file and save to a df
-    xform_df = spark.sql("""
-    SELECT 
-        exp_events.date,
-        exp_competitors.id,
-        exp_competitors.score.value
-    FROM
-        temp
-    GROUP BY 
-        1,2,3
-    """)
-    print("xform df row count")
-    count = xform_df.count()
-    print(f"transforming data complete...here's the row count {count}") 
-    
-    # union to the processed df
-    nfl_df = nfl_df.unionByName(xform_df)
-    proc_count = nfl_df.count()
-    print(f"processsed count...{proc_count}")
-spark.catalog.dropTempView('temp')
+# field formatting
+date_regex = '((0?[1-9]|1[0-2])/([12][0-9]|3[01]|0?[1-9]))'
+nfl_df = nfl_df.withColumn('day_month', F.regexp_extract(nfl_df.date, date_regex, 0))
+nfl_df = nfl_df.withColumn('game_date', F.concat(nfl_df.day_month, F.lit('/'), nfl_df.year))
 
-# calculate win metrics and update df
+nfl_df.createOrReplaceTempView('temp')
+nfl_filter_reg_season_sql = """
+  SELECT *
+  FROM temp
+  WHERE LEN(date) < 10
+"""
+nfl_df = spark.sql(nfl_filter_reg_season_sql)
+
+nfl_df = nfl_df.withColumn('game_date', F.to_date(nfl_df.game_date, 'M/d/yyyy'))
+nfl_df = nfl_df.withColumn('team', F.split(nfl_df.team, '\('))
+nfl_df = nfl_df.withColumn('team', F.element_at(nfl_df.team, 1))
+nfl_df = nfl_df.withColumn('final', nfl_df.final.cast(IntegerType()))
+nfl_df = nfl_df.withColumnRenamed('', 'row_num')
+nfl_df = nfl_df.dropDuplicates()
 nfl_df.createOrReplaceTempView('nfl_df')
-nfl_win_metrics_query = """
+
+process_nfl_sql = """
 SELECT
   *,
   CASE
-    WHEN id = winning_team_id THEN 'WIN'
+    WHEN team = winning_team THEN 'WIN'
     ELSE 'LOSE'
   END as redskins_result
 FROM (
   SELECT 
     *,
-    MAX_BY(id, value) OVER(PARTITION BY date) as winning_team_id,
-    MAX_BY(value, value) OVER(PARTITION BY date) as winning_team_score
-  FROM 
-    (
-      SELECT
-        game_date,
-        team,
-        final as final_score
-      FROM 
-          nfl
-    )
+    MAX_BY(team, final_score) OVER(PARTITION BY game_date) as winning_team,
+    MAX_BY(final_score, final_score) OVER(PARTITION BY game_date) as winning_team_score
+  FROM (
+    SELECT
+      game_date,
+      team,
+      final as final_score,
+      -- raw data is ordered to present the home team as the second row in each game
+      RANK() OVER(PARTITION BY game_date ORDER BY row_num) as home_team_rnk
+    FROM 
+        nfl_df    
+  )
 )
 WHERE
-  id = '28'
+  team = 'Washington' AND home_team_rnk = 2
 """
-nfl_df = spark.sql(nfl_win_metrics_query)
+nfl_df = spark.sql(process_nfl_sql)
 nfl_df.createOrReplaceTempView('nfl_df')
 
 # ELECTIONS #
@@ -278,8 +271,6 @@ FROM (
 elec_df = spark.sql(elec_win_metrics_query)
 elec_df.createOrReplaceTempView('elec_df')
 
-# JOIN NFL TO ELECTIONS #
-
 elec_nfl_join_query = """
 SELECT *
 FROM (
@@ -288,12 +279,12 @@ FROM (
     RANK() OVER(PARTITION BY elec_date ORDER BY date_diff ASC) diff_rank_asc
   FROM (
     SELECT *,
-    DATEDIFF(day, n.date, e.elec_date) date_diff
+    DATEDIFF(day, n.game_date, e.elec_date) date_diff
     FROM
       elec_df e
     LEFT JOIN 
       nfl_df n
-    ON (DATEDIFF(day, n.date, e.elec_date) BETWEEN 0 AND 10)
+    ON (DATEDIFF(day, n.game_date, e.elec_date) BETWEEN 0 AND 30)
   )
 )
 WHERE diff_rank_asc = 1
@@ -301,6 +292,7 @@ WHERE diff_rank_asc = 1
 nfl_elec_df = spark.sql(elec_nfl_join_query)
 
 # ADD PREDICTIONS #
+
 def predict_pres(df_elem):
     if df_elem.redskins_result == 'WIN':
         return [df_elem.elec_date, df_elem.incumbent_pres_party]

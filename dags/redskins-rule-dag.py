@@ -220,7 +220,7 @@ nfl_elec_transform_dag = DAG(
 nfl_elec_transform_task = SparkSubmitOperator(
     dag=nfl_elec_transform_dag,
     task_id="nfl_elec_transform_task",
-    application=f"{AIRFLOW_HOME}/jobs/transform/nfl-elec-transform.py",
+    application=f"{AIRFLOW_HOME}/jobs/transform/nfl-elec-transform-v2.py",
     conn_id="spark-conn",
     jars=f"{AIRFLOW_HOME}/shared-jars/gcs-connector-hadoop3-2.2.20.jar"
 )

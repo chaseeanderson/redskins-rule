@@ -1,4 +1,4 @@
 import pandas as pd 
 
-df = pd.read_parquet('gs://redskins-rule-nfl-game-data/raw/schedule/v2/processed_nfl_1978.parquet')
+df = pd.read_parquet('/Users/ceanders/code/data-eng/projects/redskins-rule/results/nfl_elec_results.parquet')
 df.to_csv('here.csv')

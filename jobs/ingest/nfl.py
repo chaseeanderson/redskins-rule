@@ -78,7 +78,10 @@ def ingest_nfl(**context):
     columns = ['year', 'date', 'team', 'final']
     df_pandas = pd.DataFrame(trimmed_unnested_data, columns=columns)
     
-    print(df_pandas)
+    # filter out ineligible games
+    substring = '--'
+    filter = df_pandas.final.str.contains(substring)
+    filtered_df = df_pandas[~filter]
 
     nfl_source_file = f"processed_nfl_{year}.csv"
-    df_pandas.to_csv(f"{AIRFLOW_HOME}/{nfl_source_file}")
+    filtered_df.to_csv(f"{AIRFLOW_HOME}/{nfl_source_file}")

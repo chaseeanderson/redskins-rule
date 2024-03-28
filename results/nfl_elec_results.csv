@@ -1,7 +1,0 @@
-,elec_date,pres_winning_party,pres_winning_candidate,count_electoral_votes,count_popular_votes,pop_winning_candidate,pop_winning_party,electoral_rank_desc,popular_rank_desc,challenger_pres_party,incumbent_pres_party,pop_incumbent_party,pop_incumbent_elec_result,date,id,value,winning_team_id,winning_team_score,redskins_result,date_diff,diff_rank_asc,p_elec_date,prediction,prediction_results
-0,2000-11-07,Republican,George W. Bush,271,50456002,Al Gore,Democratic,1,2,Republican,Democratic,Democratic,LOSE,2000-11-05 21:05:00,28,15.0,22,16.0,LOSE,1,1,2000-11-07,Republican,True
-1,2004-11-02,Republican,George W. Bush,286,62028285,George W. Bush,Republican,1,1,Democratic,Republican,Democratic,LOSE,2004-10-31 18:00:00,28,14.0,9,28.0,LOSE,1,1,2004-11-02,Republican,True
-2,2008-11-04,Democratic,Barack Obama,365,69456000,Barack Obama,Democratic,1,1,Democratic,Republican,Republican,LOSE,2008-11-04 01:30:00,28,6.0,23,23.0,LOSE,0,1,2008-11-04,Democratic,True
-3,2012-11-06,Democratic,Barack Obama,332,65446032,Barack Obama,Democratic,1,1,Republican,Democratic,Democratic,WIN,2012-11-04 18:00:00,28,13.0,29,21.0,LOSE,1,1,2012-11-06,Republican,False
-4,2016-11-08,Republican,Donald Trump,304,62979636,Hillary Clinton,Democratic,1,2,Republican,Democratic,Democratic,LOSE,2016-10-30 13:30:00,28,27.0,28,27.0,WIN,8,1,2016-11-08,Democratic,False
-5,2020-11-03,Democratic,Joe Biden,306,81268924,Joe Biden,Democratic,1,1,Democratic,Republican,Democratic,WIN,2020-10-25 17:00:00,28,25.0,28,25.0,WIN,8,1,2020-11-03,Democratic,True
