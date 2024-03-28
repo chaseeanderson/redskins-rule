@@ -53,3 +53,7 @@ All technologies are run via Docker containers and all stages are orchestrated v
 ## Disclaimer
 
 The term "Redskins" is used in this document only in reference to the "Redskins Rule", a historical term for a predictive rule related to U.S. presidential elections. I acknowledge and understand that the term is offensive and has been rightfully discontinued in reference to the Washington football franchise, which is now known as the Washington Commanders. The use of the term in this document is not intended to be disrespectful or offensive, but is maintained solely for historical accuracy and to preserve reference to the rule.
+
+### Icebox
+- Move from local to running entirely in Google Cloud
+- Create bq tables for querying raw data
