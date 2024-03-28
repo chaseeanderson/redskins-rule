@@ -10,6 +10,10 @@ With an amendment stating:
 
 > When the popular vote winner does not win the election, the impact of the Redskins game on the subsequent presidential election gets flipped.
 
+## Results
+
+- Final Looker visualizations can be found [here!](https://lookerstudio.google.com/reporting/74ed28eb-0400-4864-b713-aa0cf05a8e47)
+
 ## Project Technologies
 
 _TODO - insert technologies flowchart_
@@ -47,14 +51,6 @@ All technologies are run via Docker containers and all stages are orchestrated v
 ### Visualize
 
 - Final results are visualized in Looker, using the BQ table as source data. 
-
-## Results
-
-- Final Looker visualizations can be found [here!](https://lookerstudio.google.com/reporting/74ed28eb-0400-4864-b713-aa0cf05a8e47)
-
-## Data Limitations
-
-ESPN's NFL Team Schedules API does not provide pre-late November game scores for years before 2000, limiting the final output. 
 
 ## Disclaimer
 
