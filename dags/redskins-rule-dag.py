@@ -3,8 +3,8 @@ import sys
 import logging
 from datetime import datetime
 from airflow import DAG
-from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
+from airflow.operators.python import BranchPythonOperator
 from google.cloud import storage
 from airflow.providers.google.cloud.operators.bigquery import BigQueryCreateExternalTableOperator
 from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
@@ -15,6 +15,7 @@ import pyarrow.parquet as pq
 # local modules
 sys.path.append('/opt/airflow/')
 from jobs.ingest.nfl import ingest_nfl
+from jobs.ingest.elections import ingest_elections
 
 # Top Level Variables
 PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
@@ -67,6 +68,12 @@ def upload_to_gcs(bucket, object_name, file):
     blob = bucket.blob(object_name)
     blob.upload_from_filename(file)
 
+def choose_ingest(dag):
+    if dag == 'nfl_ingest_dag':
+      return 'download_nfl_data_task'
+    elif dag == 'elections_ingest_dag':
+      return 'download_elections_data_task'
+
 def download_parquetize_upload_gcs_tasks(
     dag,
     source_file,
@@ -78,27 +85,25 @@ def download_parquetize_upload_gcs_tasks(
     bq_table_id
 
 ):
-#   download_data_task = BashOperator(
-#     dag=dag,
-#     task_id="download_data_task",
-#     env={"dag_id": f"{dag.dag_id}"},
-#     bash_command=f"echo DOWNLOADING DATA... && \
-#     if [[ $dag_id == nfl_ingest_dag ]]; then \
-#       echo RUNNING NFL INGEST...; \
-#       python3 {AIRFLOW_HOME}/jobs/ingest/nfl.py; \
-#     elif [[ $dag_id == elections_ingest_dag ]]; then \
-#       echo RUNNING ELECTIONS INGEST...; \
-#       python3 {AIRFLOW_HOME}/jobs/ingest/elections.py; \
-#     else \
-#       echo NO DAG HERE; \
-#     fi && \
-#     ls {AIRFLOW_HOME}"
-# )
-  download_data_task = PythonOperator(
+  choose_ingest_task = BranchPythonOperator(
+    task_id = 'choose_ingest_task',
+    python_callable = choose_ingest,
+    op_kwargs={
+      "dag": dag.dag_id
+    }
+  )
+  
+  download_nfl_data_task = PythonOperator(
     dag=dag,
-    task_id="download_data_task",
+    task_id="download_nfl_data_task",
     python_callable=ingest_nfl,
     provide_context=True
+  )
+  
+  download_elections_data_task = PythonOperator(
+    dag=dag,
+    task_id="download_elections_data_task",
+    python_callable=ingest_elections
   )
 
   parquetize_data_task = PythonOperator(
@@ -107,7 +112,8 @@ def download_parquetize_upload_gcs_tasks(
     python_callable=format_to_parquet,
     op_kwargs={
       "src_file": f"{AIRFLOW_HOME}/{source_file}"
-    }
+    },
+    trigger_rule='none_failed_or_skipped'
   )
 
   local_to_gcs_task = PythonOperator(
@@ -138,7 +144,7 @@ def download_parquetize_upload_gcs_tasks(
 #     }
 # )
   
-  download_data_task >> parquetize_data_task >> local_to_gcs_task 
+  choose_ingest_task >> [download_nfl_data_task, download_elections_data_task] >> parquetize_data_task >> local_to_gcs_task 
 
 # NFL Ingest DAG
 nfl_ingest_dag = DAG(
