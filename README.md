@@ -16,8 +16,6 @@ With an amendment stating:
 
 ## Project Technologies
 
-_TODO - insert technologies flowchart_
-
 - Docker
 - Airflow
 - PySpark
