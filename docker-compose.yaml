@@ -102,7 +102,6 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
     - ${AIRFLOW_PROJ_DIR:-.}/jobs:/opt/airflow/jobs
     - ${AIRFLOW_PROJ_DIR:-.}/results:/opt/airflow/results
-    - ${AIRFLOW_PROJ_DIR:-.}/airflow-home:/opt/airflow
     - ${GOOGLE_APPLICATION_CREDENTIALS_FOLDER}/:${GOOGLE_APPLICATION_CREDENTIALS_FOLDER}:ro
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
