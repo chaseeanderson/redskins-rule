@@ -46,12 +46,8 @@
 ---
 x-spark-common: &spark-common
   image: bitnami/spark:latest
-  # build:
-  #   context: .
-  #   dockerfile: ./Dockerfile-spark
   volumes:
     - ./jobs:/opt/bitnami/spark/jobs
-    # - shared-jars:/opt/bitnami/spark/shared-jars
 
 x-airflow-common:
   &airflow-common
@@ -61,7 +57,7 @@ x-airflow-common:
   # image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.8.1}
   build:
     context: .
-    dockerfile: ./Dockerfile-airflow
+    dockerfile: ./Dockerfile
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
