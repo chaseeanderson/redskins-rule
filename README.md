@@ -26,6 +26,10 @@ All technologies are run via Docker containers and all stages are orchestrated v
 
 ### Ingest
 
+**V2**
+- Bugs were found in ESPN's NFL data, new data source / webscraper build using [The Football Database](https://www.footballdb.com/teams/nfl/washington-commanders/results)
+
+**V1**
 - NFL data is ingested via ESPN's open [Team Schedules api](https://gist.github.com/nntrn/ee26cb2a0716de0947a0a4e9a157bc1c#teams:~:text=site.api.espn.com/apis/site/v2/sports/football/nfl/teams/%7BTEAM_ID%7D/schedule%3Fseason%3D%7BYEAR%7D). Airflow jobs are run annually, ingesting the Washington Commander's schedule (with game outcomes) for each year.
 - Election data is ingested once via a custom python webscraper built to harvest election results from Britannica's [United States Presidential Election Results](https://www.britannica.com/topic/United-States-Presidential-Election-Results-1788863).
 - Source data is pre-processed and stored in GCS buckets. 
